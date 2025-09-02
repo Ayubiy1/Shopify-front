@@ -26,7 +26,7 @@ const Register = () => {
 
     const onFinish = (values) => {
         if (values.password.length < 6) console.log("Password 6 tadan kam bolmasligi kerak");
-        else mutate({ ...values, role: "buyer" });
+        else mutate({ ...values, role: "admin" });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

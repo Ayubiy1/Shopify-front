@@ -1,11 +1,17 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import CategoriesPage from "./pages/Products/Products"
+import Corusel from "./components/corusel";
+
+import "./App.css"
 
 const AppLayout = () => {
     return (
         <div>
-            <h1>🌐 My App Layout</h1>
-            <Outlet />
+            <Corusel />
+
+            <CategoriesPage />
+            {/* <HeaderComp />
+            <Outlet /> */}
         </div>
     );
 };

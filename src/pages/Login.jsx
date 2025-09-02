@@ -14,7 +14,7 @@ const Login = () => {
             return res.data;
         },
         onSuccess: (res) => {
-            console.log("Login response:", res); // 👈 token qayerda kelayotganini tekshirib oling
+            // console.log("Login response:", res); // 👈 token qayerda kelayotganini tekshirib oling
 
             // backend qaysi nom bilan token qaytaryapti? 
             // misol: res.token yoki res.accessToken yoki res.data.token

@@ -1,3 +1,11 @@
+@import "tailwindcss/preflight"; /* reset styles */
+@import "tailwindcss/utilities"; /* utilitlar */
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+
 /* . {
   display: flex;
   align-items: center;

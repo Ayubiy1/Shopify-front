@@ -11,6 +11,10 @@ import UserPage from "./pages/Users";
 import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
 import Register from "./pages/Register.jsx";
 import axios from "axios";
+import CategoriesPage from "./pages/Users/Categories/CategoriesPage.jsx";
+
+import "./index.css"
+import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 
 axios.defaults.baseURL = "http://localhost:10000/api";
 axios.defaults.withCredentials = true;
@@ -27,13 +31,29 @@ axios.interceptors.request.use((config) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />, // layout
+    element: <UserPage />, // layout
     children: [
       {
-        path: "users",
+        path: "/users",
         element: (
           <ProtectedRoute allowedRoles={["buyer"]}>
-            <UserPage />
+            <AppLayout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/users/:id",
+        element: (
+          <ProtectedRoute allowedRoles={["buyer"]}>
+            <CategoriesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/users/:name/:id",
+        element: (
+          <ProtectedRoute allowedRoles={["buyer"]}>
+            <ProductNameId />
           </ProtectedRoute>
         ),
       },

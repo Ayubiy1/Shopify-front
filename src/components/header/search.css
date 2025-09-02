@@ -1,0 +1,13 @@
+.ant-form-item-control-input {
+  height: 100% !important;
+  /* width: 84% !important; */
+}
+
+.ant-form-item {
+  /* width: 100% !important; */
+  /* background-color: aqua; */
+}
+
+.ant-form-item-control-input-content > input {
+  /* width: 300px !important; */
+}
