@@ -16,7 +16,7 @@ import CategoriesPage from "./pages/Users/Categories/CategoriesPage.jsx";
 import "./index.css"
 import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 
-axios.defaults.baseURL = "http://localhost:10000/api";
+axios.defaults.baseURL = "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
