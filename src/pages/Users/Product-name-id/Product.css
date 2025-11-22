@@ -1,4 +1,28 @@
+.colorOrsize {
+  border: 2px solid;
+}
+.colorOrsize_no {
+  border: 1px solid gray;
+}
+
+.allowed {
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid black !important;
+}
 .not-allowed {
   color: rgba(128, 128, 128, 0.603);
   border: 1px solid rgba(128, 128, 128, 0.603) !important;
+}
+
+.span {
+  border: 1px solid;
+  position: absolute;
+  width: 126% !important;
+  height: 0px;
+  top: 48%;
+  left: -16%;
+  bottom: 49%;
+  transform: rotate(47deg);
+  color: gray;
 }
