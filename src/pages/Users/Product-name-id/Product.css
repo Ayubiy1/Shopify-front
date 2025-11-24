@@ -6,9 +6,9 @@
 }
 
 .allowed {
-  padding: 3px 6px;
+  /* padding: 3px 6px; */
   border-radius: 6px;
-  border: 1px solid black !important;
+  border: 2px solid black !important;
 }
 .not-allowed {
   color: rgba(128, 128, 128, 0.603);
@@ -25,4 +25,7 @@
   bottom: 49%;
   transform: rotate(47deg);
   color: gray;
+}
+
+.button-add {
 }

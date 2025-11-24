@@ -12,6 +12,9 @@ export default function ProtectedRoute({ children, allowedRoles }) {
       try {
         const res = await axios.get("http://localhost:3000/api/auth/me", {
           withCredentials: true, // cookie yuboriladi
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         setUser(res.data);
       } catch (err) {

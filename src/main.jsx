@@ -8,13 +8,14 @@ import Login from "./pages/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./AppLayout.jsx"; // App ni faqat layout sifatida ishlatamiz
 import UserPage from "./pages/Users";
-import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Register from "./pages/Register.jsx";
 import axios from "axios";
 import CategoriesPage from "./pages/Users/Categories/CategoriesPage.jsx";
 
-import "./index.css"
+import "./index.css";
 import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
+import CartPage from "./pages/Users/CartPage.jsx";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
@@ -26,7 +27,6 @@ axios.interceptors.request.use((config) => {
   }
   return config;
 });
-
 
 const router = createBrowserRouter([
   {
@@ -58,6 +58,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/users/cart",
+        element: (
+          <ProtectedRoute allowedRoles={["buyer"]}>
+            <CartPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "admin",
         element: (
           <ProtectedRoute allowedRoles={["admin"]}>
@@ -80,7 +88,6 @@ const router = createBrowserRouter([
   { path: "/unauthorized", element: <h1>🚫 Kirish mumkin emas</h1> },
 ]);
 
-
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -92,16 +99,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 {
-
   // import { StrictMode } from 'react'
   // import { createRoot } from 'react-dom/client'
   // import './index.css'
   // import App from './App.jsx'
   // import { BrowserRouter } from 'react-router-dom'
   // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
   // const queryClient = new QueryClient();
-
   // createRoot(document.getElementById('root')).render(
   //   <StrictMode>
   //     <QueryClientProvider client={queryClient}>
@@ -111,5 +115,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   //     </QueryClientProvider>
   //   </StrictMode>,
   // )
-
 }
