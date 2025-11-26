@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import AdminPage from "./pages/Admin/AdminPage";
 import SellerPage from "./pages/Saler/SellerPage";
 import Login from "./pages/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -16,6 +15,7 @@ import CategoriesPage from "./pages/Users/Categories/CategoriesPage.jsx";
 import "./index.css";
 import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 import CartPage from "./pages/Users/CartPage.jsx";
+import AdminLayout from "./pages/Admin/AdminPage";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
@@ -65,23 +65,45 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+    ],
+  },
+  {
+    path: "admin",
+    element: <AdminLayout />,
+    children: [
       {
-        path: "admin",
+        path: "/admin",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <AdminPage />
-          </ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>admin</ProtectedRoute>
         ),
       },
       {
-        path: "seller",
+        path: "/admin/products",
         element: (
-          <ProtectedRoute allowedRoles={["seller"]}>
-            <SellerPage />
-          </ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/orders",
+        element: (
+          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/users",
+        element: (
+          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
         ),
       },
     ],
+  },
+  {
+    path: "seller",
+    element: (
+      <ProtectedRoute allowedRoles={["seller"]}>
+        <SellerPage />
+      </ProtectedRoute>
+    ),
   },
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },

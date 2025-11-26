@@ -1,20 +1,22 @@
-import { Outlet } from "react-router-dom"
-import Corusel from "../../components/corusel/index"
-import CategoriesPage from "../Products/Products"
+import { Outlet } from "react-router-dom";
+import Corusel from "../../components/corusel/index";
+import CategoriesPage from "../Products/Products";
 
-import "./User.css"
-import HeaderComp from "../../components/header"
-import CategoriesMiniComp from "../../components/categorys-mini-card/CategoriesMiniCard"
+import "./User.css";
+import HeaderComp from "../../components/header";
+import CategoriesMiniComp from "../../components/categorys-mini-card/CategoriesMiniCard";
 
 const UserPage = () => {
-    return <>
-        <div className="user">
-            <HeaderComp />
+  return (
+    <>
+      <div className="user">
+        <HeaderComp />
 
-            <CategoriesMiniComp />
+        <CategoriesMiniComp />
 
-            <Outlet />
-        </div>
+        <Outlet />
+      </div>
     </>
-}
-export default UserPage
+  );
+};
+export default UserPage;

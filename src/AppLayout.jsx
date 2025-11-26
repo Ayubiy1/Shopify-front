@@ -1,19 +1,17 @@
 import React from "react";
-import CategoriesPage from "./pages/Products/Products"
+import CategoriesPage from "./pages/Products/Products";
 import Corusel from "./components/corusel";
 
-import "./App.css"
+import "./App.css";
 
 const AppLayout = () => {
-    return (
-        <div>
-            <Corusel />
+  return (
+    <div>
+      <Corusel />
 
-            <CategoriesPage />
-            {/* <HeaderComp />
-            <Outlet /> */}
-        </div>
-    );
+      <CategoriesPage />
+    </div>
+  );
 };
 
 export default AppLayout;

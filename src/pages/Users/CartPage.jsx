@@ -63,9 +63,9 @@ const CartPage = () => {
 
     {
       title: "Soni",
-      dataIndex: "quantity",
-      key: "quantity",
-      render: () => "1",
+      dataIndex: "count",
+      key: "count",
+      render: (count) => `${count}`,
     },
 
     {
