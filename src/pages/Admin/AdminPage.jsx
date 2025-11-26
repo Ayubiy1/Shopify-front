@@ -45,33 +45,25 @@ const AdminLayout = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={`/admin`}
-          className=""
+          selectedKeys={[location.pathname]}
           onClick={(item) => navigate(item.key)}
           items={[
             {
-              index: location.pathname == "/admin" && true,
               key: "/admin",
               icon: <DashboardOutlined />,
               label: "Dashboard",
             },
             {
-              index: location.pathname == "/admin/products" && true,
-
               key: "/admin/products",
               icon: <AppstoreOutlined />,
               label: "Products",
             },
             {
-              index: location.pathname == "/admin/orders" && true,
-
               key: "/admin/orders",
               icon: <ShoppingCartOutlined />,
               label: "Orders",
             },
             {
-              index: location.pathname == "/admin/users" && true,
-
               key: "/admin/users",
               icon: <UserOutlined />,
               label: "Users",
