@@ -16,6 +16,7 @@ import "./index.css";
 import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 import CartPage from "./pages/Users/CartPage.jsx";
 import AdminLayout from "./pages/Admin/AdminPage";
+import AdminProducts from "./pages/Admin/Products/Products.jsx";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
@@ -80,19 +81,21 @@ const router = createBrowserRouter([
       {
         path: "/admin/products",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminProducts />
+          </ProtectedRoute>
         ),
       },
       {
         path: "/admin/orders",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>orders</ProtectedRoute>
         ),
       },
       {
         path: "/admin/users",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>product</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>users</ProtectedRoute>
         ),
       },
     ],
