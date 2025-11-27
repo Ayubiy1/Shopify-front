@@ -10,7 +10,7 @@ const Login = () => {
   //   const { mutate } = useMutation({
   //     mutationFn: async (user) => {
   //       const res = await axios.post(
-  //         "http://localhost:3000/api/auth/login",
+  //         "https://shopify-backend-vcnq.onrender.com/api/auth/login",
   //         user,
   //         { withCredentials: true }
   //       );
@@ -34,7 +34,7 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: async (user) => {
       const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        "https://shopify-backend-vcnq.onrender.com/api/auth/login",
         user
       );
 

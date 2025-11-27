@@ -10,7 +10,7 @@ const CategoriesPage = () => {
     const { data: products } = useQuery({
         queryKey: ["product-by-categoryId", id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/api/products`)
+            const res = await axios.get(`https://shopify-backend-vcnq.onrender.com/api/products`)
             return res.data.filter(i => i.categoryId == id)
         }
     })

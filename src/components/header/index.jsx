@@ -20,7 +20,7 @@ export default function HeaderComp() {
   const { data } = useQuery({
     queryKey: ["products-user"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/categories/");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/categories/");
       return res.data;
     },
 

@@ -14,7 +14,7 @@ const Corusel = () => {
   const { data } = useQuery({
     queryKey: ["corusel-user"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/corusel/");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/corusel/");
 
       return res?.data;
     },

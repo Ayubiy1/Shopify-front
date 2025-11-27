@@ -29,7 +29,7 @@ const AdminProducts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/products");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/products");
       return res.data;
     },
   });
@@ -40,7 +40,7 @@ const AdminProducts = () => {
     queryFn: async () => {
       if (!productId) return null;
       const res = await axios.get(
-        `http://localhost:3000/api/products/${productId}`
+        `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`
       );
       return res.data;
     },
@@ -50,7 +50,7 @@ const AdminProducts = () => {
   // ADD PRODUCT
   const { mutate: addProduct } = useMutation({
     mutationFn: async (newProduct) =>
-      axios.post("http://localhost:3000/api/products", newProduct),
+      axios.post("https://shopify-backend-vcnq.onrender.com/api/products", newProduct),
 
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
@@ -62,7 +62,7 @@ const AdminProducts = () => {
   // EDIT PRODUCT
   const { mutate: editProduct } = useMutation({
     mutationFn: async (updated) =>
-      axios.put(`http://localhost:3000/api/products/${productId}`, updated),
+      axios.put(`https://shopify-backend-vcnq.onrender.com/api/products/${productId}`, updated),
 
     onSuccess: () => {
       message.success("Mahsulot yangilandi!");
@@ -74,7 +74,7 @@ const AdminProducts = () => {
   // DELETE PRODUCT
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`);
+      await axios.delete(`https://shopify-backend-vcnq.onrender.com/api/products/${id}`);
       message.success("Mahsulot o‘chirildi!");
       queryClient.invalidateQueries(["admin-products"]);
     } catch (error) {
@@ -428,7 +428,7 @@ export default AdminProducts;
   //     const { data, isLoading } = useQuery({
   //       queryKey: "admin-products",
   //       queryFn: async () => {
-  //         const res = await axios.get("http://localhost:3000/api/products");
+  //         const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/products");
   //         return res.data;
   //       },
   //     });
@@ -436,7 +436,7 @@ export default AdminProducts;
   //       queryKey: ["admin-product-edit", productId],
   //       queryFn: async () => {
   //         const res = await axios.get(
-  //           `http://localhost:3000/api/products/${productId}`
+  //           `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`
   //         );
   //         return res.data;
   //       },
@@ -445,7 +445,7 @@ export default AdminProducts;
   //       mutationKey: ["admin-edit-product", productId],
   //       mutationFn: async (updatedDate) => {
   //         const upDate = axios.put(
-  //           `http://localhost:3000/api/products/${productId}`,
+  //           `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`,
   //           updatedDate
   //         );
   //         return upDate;
@@ -453,7 +453,7 @@ export default AdminProducts;
   //     });
   //     const deleteProduct = async (id) => {
   //       try {
-  //         await axios.delete(`http://localhost:3000/api/products/${id}`);
+  //         await axios.delete(`https://shopify-backend-vcnq.onrender.com/api/products/${id}`);
   //         message.success("Mahsulot o'chirildi!");
   //       } catch (error) {
   //         message.error("Xatolik!");

@@ -19,7 +19,7 @@ const ProductNameId = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product-name-id", id],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/products");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/products");
 
       return res.data.find((p) => p._id === id);
     },
@@ -35,14 +35,14 @@ const ProductNameId = () => {
 
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
-      return axios.put(`http://localhost:3000/api/products${1}`);
+      return axios.put(`https://shopify-backend-vcnq.onrender.com/api/products${1}`);
     },
   });
 
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("http://localhost:3000/api/cart/add", product, {
+      axios.post("https://shopify-backend-vcnq.onrender.com/api/cart/add", product, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },

@@ -11,7 +11,7 @@ const CartPage = () => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["korzinka"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/cart/me", {
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/cart/me", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },
@@ -23,7 +23,7 @@ const CartPage = () => {
   // 🗑 CART ITEMni O‘CHIRISH
   const deleteMutation = useMutation({
     mutationFn: async (id) =>
-      axios.delete(`http://localhost:3000/api/cart/${id}`),
+      axios.delete(`https://shopify-backend-vcnq.onrender.com/api/cart/${id}`),
     onSuccess: () => {
       message.success("O‘chirildi!");
       refetch(); // table yangilansin

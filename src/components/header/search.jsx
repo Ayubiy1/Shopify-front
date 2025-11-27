@@ -11,7 +11,7 @@ const SearchComp = () => {
     queryKey: ["search", searchValue],
     queryFn: () => async (query) => {
       const res = await axios.get(
-        `http://localhost:3000/api/products/search?q=${query}`
+        `https://shopify-backend-vcnq.onrender.com/api/products/search?q=${query}`
       );
 
       return res.data;

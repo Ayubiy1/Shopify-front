@@ -8,7 +8,7 @@ const CategoriesMiniComp = () => {
   const { data } = useQuery({
     queryKey: "Categories-mini-cards2",
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/categories/");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/categories/");
       return res.data;
     },
   });
