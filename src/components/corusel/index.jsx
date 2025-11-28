@@ -14,14 +14,16 @@ const Corusel = () => {
   const { data } = useQuery({
     queryKey: ["corusel-user"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/corusel/");
+      const res = await axios.get(
+        "https://shopify-backend-vcnq.onrender.com/api/corusel/",
+        { withCredentials: true }
+      );
 
       return res?.data;
     },
   });
 
-
-  const onChange = (currentSlide) => { };
+  const onChange = (currentSlide) => {};
   return (
     <>
       <Carousel autoplay autoplaySpeed={3000}>
@@ -30,7 +32,12 @@ const Corusel = () => {
             <img
               src={item?.image}
               alt={item?.title}
-              style={{ width: "100%", height: "444px", objectFit: "cover", borderRadius: "15px" }}
+              style={{
+                width: "100%",
+                height: "444px",
+                objectFit: "cover",
+                borderRadius: "15px",
+              }}
             />
           </div>
         ))}

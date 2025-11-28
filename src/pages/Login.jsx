@@ -35,7 +35,8 @@ const Login = () => {
     mutationFn: async (user) => {
       const res = await axios.post(
         "https://shopify-backend-vcnq.onrender.com/api/auth/login",
-        user
+        user,
+        { withCredentials: true }
       );
 
       console.log("Login response:", res);

@@ -20,7 +20,10 @@ export default function HeaderComp() {
   const { data } = useQuery({
     queryKey: ["products-user"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/categories/");
+      const res = await axios.get(
+        "https://shopify-backend-vcnq.onrender.com/api/categories/",
+        { withCredentials: true }
+      );
       return res.data;
     },
 

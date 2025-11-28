@@ -11,7 +11,8 @@ const SearchComp = () => {
     queryKey: ["search", searchValue],
     queryFn: () => async (query) => {
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/products/search?q=${query}`
+        `https://shopify-backend-vcnq.onrender.com/api/products/search?q=${query}`,
+        { withCredentials: true }
       );
 
       return res.data;

@@ -11,11 +11,15 @@ const CartPage = () => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["korzinka"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/cart/me", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
-        },
-      });
+      const res = await axios.get(
+        "https://shopify-backend-vcnq.onrender.com/api/cart/me",
+        { withCredentials: true },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
+          },
+        }
+      );
       return res.data;
     },
   });

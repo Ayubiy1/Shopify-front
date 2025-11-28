@@ -29,7 +29,10 @@ const AdminProducts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/products");
+      const res = await axios.get(
+        "https://shopify-backend-vcnq.onrender.com/api/products",
+        { withCredentials: true }
+      );
       return res.data;
     },
   });
@@ -40,7 +43,8 @@ const AdminProducts = () => {
     queryFn: async () => {
       if (!productId) return null;
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`
+        `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`,
+        { withCredentials: true }
       );
       return res.data;
     },
@@ -50,7 +54,10 @@ const AdminProducts = () => {
   // ADD PRODUCT
   const { mutate: addProduct } = useMutation({
     mutationFn: async (newProduct) =>
-      axios.post("https://shopify-backend-vcnq.onrender.com/api/products", newProduct),
+      axios.post(
+        "https://shopify-backend-vcnq.onrender.com/api/products",
+        newProduct,{ withCredentials: true }
+      ),
 
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
@@ -62,7 +69,11 @@ const AdminProducts = () => {
   // EDIT PRODUCT
   const { mutate: editProduct } = useMutation({
     mutationFn: async (updated) =>
-      axios.put(`https://shopify-backend-vcnq.onrender.com/api/products/${productId}`, updated),
+      axios.put(
+        `https://shopify-backend-vcnq.onrender.com/api/products/${productId}`,
+        updated,
+        { withCredentials: true }
+      ),
 
     onSuccess: () => {
       message.success("Mahsulot yangilandi!");
@@ -74,7 +85,9 @@ const AdminProducts = () => {
   // DELETE PRODUCT
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`https://shopify-backend-vcnq.onrender.com/api/products/${id}`);
+      await axios.delete(
+        `https://shopify-backend-vcnq.onrender.com/api/products/${id}`,{ withCredentials: true }
+      );
       message.success("Mahsulot o‘chirildi!");
       queryClient.invalidateQueries(["admin-products"]);
     } catch (error) {
