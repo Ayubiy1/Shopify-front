@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://shopify-backend-vcnq.onrender.com/api", // backend manzilingiz
+  baseURL: "https://shopify-backend-vcnq.onrender.com/", // backend manzilingiz
   withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
 });
 

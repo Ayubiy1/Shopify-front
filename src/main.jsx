@@ -18,7 +18,7 @@ import CartPage from "./pages/Users/CartPage.jsx";
 import AdminLayout from "./pages/Admin/AdminPage";
 import AdminProducts from "./pages/Admin/Products/Products.jsx";
 
-axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/api";
+axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
