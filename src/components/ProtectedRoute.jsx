@@ -10,12 +10,15 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/auth/me", {
-          withCredentials: true, // cookie yuboriladi
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await axios.get(
+          "https://shopify-backend-vcnq.onrender.com/api/auth/me",
+          {
+            withCredentials: true, // cookie yuboriladi
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setUser(res.data);
       } catch (err) {
         setUser(null);
