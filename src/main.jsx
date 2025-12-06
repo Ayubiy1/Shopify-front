@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
@@ -17,6 +16,9 @@ import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 import CartPage from "./pages/Users/CartPage.jsx";
 import AdminLayout from "./pages/Admin/AdminPage";
 import AdminProducts from "./pages/Admin/Products/Products.jsx";
+import AdminUsers from "./pages/Admin/Users/AdminUsers.jsx";
+import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard.jsx";
+import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
 
 axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/";
 axios.defaults.withCredentials = true;
@@ -66,6 +68,12 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/users/profil",
+        element: (
+          <ProtectedRoute allowedRoles={["buyer"]}>Profil</ProtectedRoute>
+        ),
+      },
     ],
   },
   {
@@ -75,7 +83,9 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>admin</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
         ),
       },
       {
@@ -89,13 +99,17 @@ const router = createBrowserRouter([
       {
         path: "/admin/orders",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>orders</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminOrders />
+          </ProtectedRoute>
         ),
       },
       {
         path: "/admin/users",
         element: (
-          <ProtectedRoute allowedRoles={["admin"]}>users</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminUsers />
+          </ProtectedRoute>
         ),
       },
     ],

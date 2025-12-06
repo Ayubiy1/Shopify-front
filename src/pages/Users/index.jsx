@@ -1,6 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Corusel from "../../components/corusel/index";
-import CategoriesPage from "../Products/Products";
 
 import "./User.css";
 import HeaderComp from "../../components/header";

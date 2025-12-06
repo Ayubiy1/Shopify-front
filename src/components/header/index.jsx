@@ -49,19 +49,24 @@ export default function HeaderComp() {
       <div className="header">
         {/* Logo */}
         <div className="header__logo">
-          {/* <div className="header__logo-icon">S</div> */}
-          <span className="header__logo-text">Shopping UZ</span>
+          <span
+            className="header__logo-text cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Shopping UZ
+          </span>
         </div>
 
-        {/* Katalog button */}
-        <Button type="default" onClick={showDrawer} icon={<MenuOutlined />}>
-          Katalog
-        </Button>
+        <div className="md:hidden">
+          <Button type="default" onClick={showDrawer} icon={<MenuOutlined />}>
+            Katalog
+          </Button>
+        </div>
 
-        {/* Search bar */}
         <SearchComp />
 
-        {/* Right icons */}
         <div className="header__actions">
           <div className="header__action-item">
             <UserOutlined />
@@ -90,7 +95,6 @@ export default function HeaderComp() {
           }}
         >
           <div className="header__logo">
-            {/* <div className="header__logo-icon">S</div> */}
             <span className="header__logo-text">Shopping UZ</span>
           </div>
 
@@ -143,6 +147,32 @@ export default function HeaderComp() {
         onClose={onClose}
         open={open}
       >
+        <div
+          className="flex items-center justify-around"
+          style={{ marginBottom: "25px" }}
+        >
+          <div
+            className="header__action-item"
+            onClick={() => {
+              onClose();
+              navigate("/users/profile");
+            }}
+          >
+            <UserOutlined />
+          </div>
+          <div className="header__action-item">
+            <HeartOutlined />
+          </div>
+          <div
+            className="header__action-item"
+            onClick={() => {
+              onClose();
+              navigate("/users/cart");
+            }}
+          >
+            <ShoppingCartOutlined />
+          </div>
+        </div>
         {data?.map((item, index) => {
           return (
             <div
@@ -150,7 +180,7 @@ export default function HeaderComp() {
               className="category"
               style={{
                 padding: "5px",
-                border: "1px solid",
+                borderRadius: "6px",
                 margin: "5px 0",
                 cursor: "pointer",
                 fontWeight: "500",
@@ -167,40 +197,4 @@ export default function HeaderComp() {
       </Drawer>
     </>
   );
-}
-
-{
-  // import React, { useState } from "react"
-  // import Logo from "./image.png"
-  // import { Button, Drawer } from "antd"
-  // import SearchComp from "./search";
-  // const HeaderComp = () => {
-  //     const [open, setOpen] = useState(false);
-  //     const showDrawer = () => {
-  //         setOpen(true);
-  //     };
-  //     const onClose = () => {
-  //         setOpen(false);
-  //     };
-  //     return <>
-  //         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-  //             <img style={{ width: "200px" }} src={Logo} alt="" />
-  //             <div style={{ display: "flex", }}>
-  //                 <Button style={{ background: "rgb(0 106 255 / 52%)", color: "white" }} onClick={showDrawer}>Katalog</Button>
-  //                 <SearchComp />
-  //             </div>
-  //         </div>
-  //         <Drawer
-  //             title="Basic Drawer"
-  //             closable={{ 'aria-label': 'Close Button' }}
-  //             onClose={onClose}
-  //             open={open}
-  //         >
-  //             <p>Some contents...</p>
-  //             <p>Some contents...</p>
-  //             <p>Some contents...</p>
-  //         </Drawer>
-  //     </>
-  // }
-  // export default HeaderComp
 }

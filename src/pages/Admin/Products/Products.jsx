@@ -24,6 +24,7 @@ const AdminProducts = () => {
   const [productId, setProductId] = useState(null);
   const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [filteredInfo, setFilteredInfo] = useState({});
 
   // ALL PRODUCTS
   const { data, isLoading } = useQuery({
@@ -52,11 +53,12 @@ const AdminProducts = () => {
   });
 
   // ADD PRODUCT
-  const { mutate: addProduct } = useMutation({
+  const { mutate: addProduct, isLoading: addPrdctIsLoading } = useMutation({
     mutationFn: async (newProduct) =>
       axios.post(
         "https://shopify-backend-vcnq.onrender.com/api/products",
-        newProduct,{ withCredentials: true }
+        newProduct,
+        { withCredentials: true }
       ),
 
     onSuccess: () => {
@@ -86,7 +88,8 @@ const AdminProducts = () => {
   const deleteProduct = async (id) => {
     try {
       await axios.delete(
-        `https://shopify-backend-vcnq.onrender.com/api/products/${id}`,{ withCredentials: true }
+        `https://shopify-backend-vcnq.onrender.com/api/products/${id}`,
+        { withCredentials: true }
       );
       message.success("Mahsulot o‘chirildi!");
       queryClient.invalidateQueries(["admin-products"]);
@@ -188,6 +191,10 @@ const AdminProducts = () => {
     message.success("Variants generatsiya qilindi!");
   };
 
+  const handleChange = (pagination, filters, sorter) => {
+    setFilteredInfo(filters);
+  };
+
   const columns = [
     {
       title: "Rasm",
@@ -202,19 +209,49 @@ const AdminProducts = () => {
     {
       title: "Nomi",
       dataIndex: "name",
+      fixed: "left",
+      with: 222,
     },
     {
       title: "Kategoriya",
       dataIndex: "category",
+      filters: data
+        ? Array.from(
+            new Set(
+              data.map(
+                (prdct) =>
+                  prdct.category && prdct.category.trim() !== ""
+                    ? prdct.category
+                    : "No category" // ✔ bo‘shlarni ham qo‘shadi
+              )
+            )
+          ).map((name) => ({
+            text: name,
+            value: name,
+          }))
+        : [],
+      filteredValue: filteredInfo?.category || [],
+      onFilter: (value, record) => {
+        const realCategory =
+          record.category && record.category.trim() !== ""
+            ? record.category
+            : "No category";
+
+        return realCategory === value;
+      },
+      // onFilter: (value, record) => record?.category === value,
     },
     {
       title: "Narx",
       dataIndex: "price",
       render: (p) => `$${p}`,
+      sorter: (a, b) => a?.price - b?.price,
     },
     {
       title: "Variants",
+      dataIndex: "variants",
       render: (_, record) => record?.variants?.length,
+      sorter: (a, b) => a?.variants?.length - b?.variants?.length,
     },
     {
       title: "Amallar",
@@ -254,6 +291,9 @@ const AdminProducts = () => {
         loading={isLoading}
         rowKey="_id"
         bordered
+        onChange={handleChange}
+        pagination={false}
+        scroll={{ x: 1000, y: 90 * 5 }}
       />
 
       {/* DRAWER */}
@@ -275,6 +315,14 @@ const AdminProducts = () => {
           <Form.Item
             label="Product name"
             name="name"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Categories name"
+            name="category"
             rules={[{ required: true }]}
           >
             <Input />
@@ -366,45 +414,6 @@ const AdminProducts = () => {
                 }
               </Form.List>
             </Collapse.Panel>
-
-            {/* <Collapse.Panel header="Variants" key="2">
-              <Form.List name="variants">
-                {(fields) =>
-                  fields.map((field) => (
-                    <div
-                      key={field.key}
-                      className="mb-3 p-3 border rounded bg-gray-50"
-                    >
-                      <Form.Item
-                        label="Color"
-                        name={[field.name, "combination", "color"]}
-                      >
-                        <Input />
-                      </Form.Item>
-
-                      <Form.Item
-                        label="Size"
-                        name={[field.name, "combination", "size"]}
-                      >
-                        <Input />
-                      </Form.Item>
-
-                      <Form.Item label="Price" name={[field.name, "price"]}>
-                        <InputNumber className="w-full" />
-                      </Form.Item>
-
-                      <Form.Item label="Stock" name={[field.name, "stock"]}>
-                        <InputNumber className="w-full" min={0} />
-                      </Form.Item>
-
-                      <Form.Item label="Images" name={[field.name, "images"]}>
-                        <Select mode="tags" />
-                      </Form.Item>
-                    </div>
-                  ))
-                }
-              </Form.List>
-            </Collapse.Panel> */}
           </Collapse>
         </Form>
       </Drawer>

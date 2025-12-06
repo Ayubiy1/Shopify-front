@@ -27,7 +27,7 @@ const CategoriesPage = () => {
           return (
             <Col
               key={item._id}
-              xs={20}
+              xs={12}
               sm={12}
               md={8}
               lg={6}
@@ -41,7 +41,6 @@ const CategoriesPage = () => {
                 onClick={() => navigate(`/product/${item?._id}`)}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col h-full"
               >
-                {/* Product Image */}
                 <div className="w-full h-52 flex items-center justify-center overflow-hidden rounded-t-xl">
                   <img
                     src={item?.images[0]}
@@ -50,9 +49,8 @@ const CategoriesPage = () => {
                   />
                 </div>
 
-                {/* Product Info */}
                 <div
-                  className="flex flex-col gap-1 text-sm"
+                  className="flex flex-col gap-1 text-sm justify-between h-[200px]"
                   style={{ padding: "10px" }}
                 >
                   <div className="flex items-center gap-2">
