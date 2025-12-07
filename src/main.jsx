@@ -1,17 +1,18 @@
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from "axios";
+
+import "./index.css";
+import AppLayout from "./AppLayout.jsx"; // App ni faqat layout sifatida ishlatamiz
 import { AuthProvider } from "./context/AuthContext";
 import SellerPage from "./pages/Saler/SellerPage";
 import Login from "./pages/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AppLayout from "./AppLayout.jsx"; // App ni faqat layout sifatida ishlatamiz
 import UserPage from "./pages/Users";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Register from "./pages/Register.jsx";
-import axios from "axios";
 import CategoriesPage from "./pages/Users/Categories/CategoriesPage.jsx";
-
-import "./index.css";
 import ProductNameId from "./pages/Users/Product-name-id/Product.jsx";
 import CartPage from "./pages/Users/CartPage.jsx";
 import AdminLayout from "./pages/Admin/AdminPage";
@@ -128,13 +129,17 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
+const CLIENT_ID =
+  "852221769478-pkl5g2h2af0p4cldi55ersikhs1sghcg.apps.googleusercontent.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </AuthProvider>
+  <GoogleOAuthProvider clientId={CLIENT_ID}>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
+  </GoogleOAuthProvider>
 );
 
 {

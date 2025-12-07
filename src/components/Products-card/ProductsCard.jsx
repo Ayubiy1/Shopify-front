@@ -31,9 +31,9 @@ const ProductsCard = ({ categry_name, categry_path }) => {
               <Col
                 span={12}
                 xs={{ span: 12 }}
-                md={{ span: 12 }}
-                lg={{ span: 8 }}
-                xl={{ span: 6 }}
+                md={{ span: 8 }}
+                lg={{ span: 6 }}
+                xl={{ span: 4 }}
                 key={indx}
                 style={{ padding: "10px" }}
               >
@@ -57,6 +57,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
                     <span className="line-through" style={{ color: "gray" }}>
                       {prduct?.price / 0.8} $
                     </span>
+                    <span>{prduct?.name}</span>
                   </div>
                 </div>
               </Col>

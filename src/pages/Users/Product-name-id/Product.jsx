@@ -156,7 +156,7 @@ const ProductNameId = () => {
     <div className="p-6">
       <h1 className="text-[24px] font-bold">{data.name}</h1>
 
-      <div className="flex justify-around gap-6 mt-5">
+      <div className="md:flex justify-around gap-6 mt-5">
         {/* LEFT — IMAGES */}
         <div className="">
           <div className="flex gap-2 w-1/4 md:w-1/1 overflow-y-scroll hidden-scrollbar my-[10px]">

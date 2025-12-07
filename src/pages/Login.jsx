@@ -1,35 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  //   const { mutate } = useMutation({
-  //     mutationFn: async (user) => {
-  //       const res = await axios.post(
-  //         "https://shopify-backend-vcnq.onrender.com/api/auth/login",
-  //         user,
-  //         { withCredentials: true }
-  //       );
-  //       return res.data;
-  //     },
-  //     onSuccess: (res) => {
-  //       console.log("Login Response:", res);
-
-  //       localStorage.setItem("token", res.accessToken);
-  //       localStorage.setItem("refreshToken", res.refreshToken);
-
-  //       if (res.user.role === "admin") navigate("/admin");
-  //       if (res.user.role === "buyer") navigate("/users");
-  //       if (res.user.role === "seller") navigate("/seller");
-  //     },
-  //     onError: (err) => {
-  //       alert(err.response?.data?.message || "Xatolik");
-  //     },
-  //   });
 
   const { mutate } = useMutation({
     mutationFn: async (user) => {
@@ -43,12 +21,6 @@ const Login = () => {
       return res.data;
     },
     onSuccess: (res) => {
-      console.log("Login response:", res); // 👈 token qayerda kelayotganini tekshirib oling
-
-      // backend qaysi nom bilan token qaytaryapti?
-      // misol: res.token yoki res.accessToken yoki res.data.token
-      const token = res.token || res.accessToken;
-
       // localStorage.setItem("token", token);
       localStorage.setItem("token", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
@@ -68,34 +40,29 @@ const Login = () => {
       alert(error.response?.data?.message || error.message);
     },
   });
-  {
-    //   const { mutate } = useMutation({
-    //     mutationFn: async (user) => {
-    //       const res = await axios.post(
-    //         "http://localhost:10000/api/auth/login",
-    //         user
-    //       );
-    //       // https://shopify-backend-vcnq.onrender.com/api/auth/login",
-    //       return res.data;
-    //     },
-    //     onSuccess: (res) => {
-    //       localStorage.setItem("token", res.token);
-    //       if (res.user.role === "buyer") {
-    //         navigate("/users");
-    //       }
-    //       if (res.user.role === "admin") {
-    //         navigate("/admin");
-    //       }
-    //       if (res.user.role === "seller") {
-    //         navigate("/seller");
-    //       }
-    //       alert("Succes");
-    //     },
-    //     onError: (error) => {
-    //       alert(error.message);
-    //     },
-    //   });
-  }
+
+  const handleLogin = async (credentialResponse) => {
+    console.log("Token frontenddan:", credentialResponse.credential);
+
+    const decoded = jwtDecode(credentialResponse.credential);
+    console.log("Decoded:", decoded); // name, email, picture
+
+    // Backendga yuborish
+    const res = await fetch("http://localhost:5000/auth/google", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: credentialResponse.credential }),
+    });
+
+    // const res = await fetch("http://localhost:5000/auth/google", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ token: credentialResponse.credential }),
+    // });
+    const data = await res.json();
+    console.log("Backend response:", data);
+  };
+
   const onFinish = (values) => {
     if (values.password.length < 6)
       alert("Password 6 tadan kam bolmasligi kerak");
@@ -115,7 +82,7 @@ const Login = () => {
         width: "100%",
       }}
     >
-      <div className="flex justify-center items-center w-[80%]">
+      <div className="flex flex-col justify-center items-center w-[80%]">
         <Form
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -156,6 +123,12 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={() => {
+            console.log("Logi failed");
+          }}
+        />
       </div>
     </div>
   );
