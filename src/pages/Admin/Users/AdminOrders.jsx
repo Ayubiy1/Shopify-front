@@ -8,7 +8,8 @@ const AdminOrders = () => {
 
   const { data } = useQuery({
     queryKey: ["admin-orders"],
-    queryFn: async () => await axios.get(`http://localhost:3000/api/cart`),
+    queryFn: async () =>
+      await axios.get(`https://shopify-backend-vcnq.onrender.com/api/cart`),
   });
 
   const columns = [

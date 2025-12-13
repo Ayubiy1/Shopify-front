@@ -6,7 +6,7 @@ const RecentOrdersTable = () => {
   const { data } = useQuery({
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/admin/orders", {
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/admin/orders", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

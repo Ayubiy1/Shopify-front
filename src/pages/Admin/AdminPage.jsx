@@ -10,6 +10,8 @@ import {
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLocalStorageState } from "ahooks";
+import { CiViewTable } from "react-icons/ci";
+import { FaHistory } from "react-icons/fa";
 
 const { Sider, Header, Content } = Layout;
 
@@ -54,9 +56,21 @@ const AdminLayout = () => {
               label: "Dashboard",
             },
             {
-              key: "/admin/products",
+              // key: "/admin/products",
               icon: <AppstoreOutlined />,
               label: "Products",
+              children: [
+                {
+                  key: "/admin/products/table",
+                  icon: <CiViewTable />,
+                  label: "Products Table",
+                },
+                {
+                  key: "/admin/products/stock-history",
+                  icon: <FaHistory />,
+                  label: "Products Stock History",
+                },
+              ],
             },
             {
               key: "/admin/orders",

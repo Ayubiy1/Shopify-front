@@ -15,7 +15,7 @@ const SalesChart = () => {
   const { data } = useQuery({
     queryKey: ["sales-chart"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/admin/chart", {
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/admin/chart", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

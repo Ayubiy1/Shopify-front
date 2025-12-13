@@ -20,6 +20,7 @@ import AdminProducts from "./pages/Admin/Products/Products.jsx";
 import AdminUsers from "./pages/Admin/Users/AdminUsers.jsx";
 import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard.jsx";
 import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
+import StockHistoryPage from "./pages/Admin/Products/StockHistoryPage.jsx";
 
 axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/";
 axios.defaults.withCredentials = true;
@@ -90,10 +91,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/products",
+        path: "/admin/products/table",
         element: (
           <ProtectedRoute allowedRoles={["admin"]}>
             <AdminProducts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/products/stock-history",
+        element: (
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <StockHistoryPage />
           </ProtectedRoute>
         ),
       },

@@ -6,7 +6,7 @@ const StatsCards = () => {
   const { data: stats } = useQuery({
     queryKey: ["admin-stats-carts"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/api/admin/stats", {
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/admin/stats", {
         withCredentials: true,
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });

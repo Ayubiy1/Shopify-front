@@ -48,18 +48,36 @@ const Login = () => {
     console.log("Decoded:", decoded); // name, email, picture
 
     // Backendga yuborish
-    const res = await fetch("http://localhost:5000/auth/google", {
+    const res = await fetch("https://shopify-backend-vcnq.onrender.com/api/auth/google", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: credentialResponse.credential }),
     });
 
-    // const res = await fetch("http://localhost:5000/auth/google", {
+    // const res = await fetch("https://shopify-backend-vcnq.onrender.comauth/google", {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
     //   body: JSON.stringify({ token: credentialResponse.credential }),
     // });
+    console.log(res, "res");
+
     const data = await res.json();
+    console.log(data);
+
+    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
+
+    if (data.user.role === "buyer") {
+      navigate("/users");
+    }
+    if (data.user.role === "admin") {
+      navigate("/admin");
+    }
+    if (data.user.role === "seller") {
+      navigate("/seller");
+    }
+    alert("Success");
+
     console.log("Backend response:", data);
   };
 

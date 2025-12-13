@@ -1,13 +1,17 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image, message } from "antd";
+import { useForm } from "antd/es/form/Form";
 
 import "./Product.css";
 
 const ProductNameId = () => {
+  const [form] = useForm();
+
   const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -40,12 +44,16 @@ const ProductNameId = () => {
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("http://localhost:3000/api/cart/add", product, {
+      axios.post("https://shopify-backend-vcnq.onrender.com/api/cart/add", product, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },
       }),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      console.log(res);
+
+      queryClient.invalidateQueries("product-name-id");
+
       setLoadingAddCart(false);
       alert("Savatchaga qo‘shildi!");
     },
@@ -68,6 +76,7 @@ const ProductNameId = () => {
     const v = data.variants.find((v) =>
       Object.entries(d).every(([key, val]) => v.combination[key] === val)
     );
+    console.log(v);
 
     setSelectedVariant(v ?? null);
   }, [data]);
@@ -117,10 +126,22 @@ const ProductNameId = () => {
   const handleAddToCart = () => {
     if (!selectedVariant) return;
     if (selectedVariant.stock === 0) return message.error("Tugagan variant!");
+    console.log(selectedVariant);
+
+    console.log({
+      count: countProduct,
+      productId: id,
+      variantId: selectedVariant?._id,
+      title: data.name,
+      combination: selectedVariant.combination,
+      images: selectedVariant.images,
+      price: selectedVariant.price,
+    });
 
     mutate({
       count: countProduct,
       productId: id,
+      variantId: selectedVariant?._id,
       title: data.name,
       combination: selectedVariant.combination,
       images: selectedVariant.images,
