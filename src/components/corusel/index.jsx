@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Carousel } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -23,6 +23,16 @@ const Corusel = () => {
     },
   });
 
+  useEffect(() => {
+    data?.forEach((item) => {
+      axios.patch(`http://localhost:5000/api/corusel/${item._id}/view`);
+    });
+  }, []);
+
+  const handleClick = (id) => {
+    axios.patch(`http://localhost:5000/api/corusel/${id}/click`);
+  };
+
   const onChange = (currentSlide) => {};
   return (
     <>
@@ -32,6 +42,7 @@ const Corusel = () => {
             <img
               src={item?.image}
               alt={item?.title}
+              onClick={() => handleClick(item._id)}
               style={{
                 width: "100%",
                 height: "444px",

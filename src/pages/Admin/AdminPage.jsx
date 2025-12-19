@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useLocalStorageState } from "ahooks";
 import { CiViewTable } from "react-icons/ci";
 import { FaHistory } from "react-icons/fa";
+import { FcAdvertising } from "react-icons/fc";
 
 const { Sider, Header, Content } = Layout;
 
@@ -81,6 +82,11 @@ const AdminLayout = () => {
               key: "/admin/users",
               icon: <UserOutlined />,
               label: "Users",
+            },
+            {
+              key: "/admin/corusel",
+              icon: <FcAdvertising />,
+              label: "Corusels",
             },
           ]}
         />

@@ -16,6 +16,8 @@ const AdminOrders = () => {
     {
       title: "Rasm",
       dataIndex: "images",
+      fixed: "left",
+      with: 222,
       render: (images) =>
         images?.length ? (
           <img src={images[0]} width={60} style={{ borderRadius: 8 }} />
@@ -30,10 +32,25 @@ const AdminOrders = () => {
       with: 222,
     },
     {
+      title: "Soni",
+      dataIndex: "count",
+      with: 222,
+      render: (c) => `${c} ta`,
+      sorter: (a, b) => a?.count - b?.count,
+    },
+    {
       title: "Narx",
       dataIndex: "price",
       render: (p) => `$${p}`,
       sorter: (a, b) => a?.price - b?.price,
+    },
+    {
+      title: "Umumiy",
+      dataIndex: "",
+      render: (_, p) => {
+        return `${p.count * p.price} $`;
+      },
+      sorter: (a, b) => a.count * a.price - b.count * b.price,
     },
     {
       title: "Combination",
@@ -51,7 +68,7 @@ const AdminOrders = () => {
         columns={columns}
         pagination={false}
         dataSource={data?.data}
-        scroll={{ x: 1000, y: 90 * 5 }}
+        scroll={{ x: 1000, y: 148 * 5 }}
       />
     </>
   );

@@ -18,6 +18,7 @@ import CartPage from "./pages/Users/CartPage.jsx";
 import AdminLayout from "./pages/Admin/AdminPage";
 import AdminProducts from "./pages/Admin/Products/Products.jsx";
 import AdminUsers from "./pages/Admin/Users/AdminUsers.jsx";
+import AdminCorusel from "./pages/Admin/Corusel/AdminCorusel.jsx";
 import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard.jsx";
 import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
 import StockHistoryPage from "./pages/Admin/Products/StockHistoryPage.jsx";
@@ -119,6 +120,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute allowedRoles={["admin"]}>
             <AdminUsers />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/corusel",
+        element: (
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminCorusel />
           </ProtectedRoute>
         ),
       },

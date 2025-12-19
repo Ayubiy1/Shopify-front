@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Button,
   Drawer,
@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 
 const AdminUsers = () => {
   const [form] = useForm();
+  const queryClient = useQueryClient();
+
   const [filteredInfo, setFilteredInfo] = useState({});
   const [open, setOpen] = useState(false);
   const [choosedUser, setChoosedUser] = useState("");
@@ -37,6 +39,18 @@ const AdminUsers = () => {
       return res.data;
     },
   });
+  const { mutate, isLoading: userUpadateLoading } = useMutation({
+    mutationKey: ["Admin-user-update"],
+    mutationFn: async (upData) =>
+      await axios.put(
+        `https://shopify-backend-vcnq.onrender.com/api/users/${choosedUser}`,
+        upData
+      ),
+    onSuccess: () => {
+      onClose();
+      queryClient.invalidateQueries(["admin-corusels"]);
+    },
+  });
 
   useEffect(() => {
     if (userData) {
@@ -46,7 +60,7 @@ const AdminUsers = () => {
         role: userData?.role,
       });
     }
-  }, [userData]);
+  }, [userData, choosedUser, open]);
 
   const showDrawer = () => {
     setOpen(true);
@@ -60,7 +74,7 @@ const AdminUsers = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    mutate(values);
   };
 
   const columns = [
@@ -104,6 +118,13 @@ const AdminUsers = () => {
         <Space>
           <Button
             onClick={() => {
+              console.log(record);
+
+              form.setFieldsValue({
+                fullName: record?.fullName,
+                email: record?.email,
+                role: record?.role,
+              });
               setChoosedUser(record?._id);
               showDrawer();
             }}
@@ -145,7 +166,7 @@ const AdminUsers = () => {
           <div className="flex justify-end gap-3">
             <Button onClick={() => setOpen(false)}>Bekor qilish</Button>
             <Button type="primary" onClick={() => form.submit()}>
-              Yangilash
+              {userUpadateLoading ? "Loading..." : "Yangilash"}
             </Button>
           </div>
         }
@@ -153,7 +174,7 @@ const AdminUsers = () => {
         <Form
           layout="vertical"
           form={form}
-          initialValues={userData}
+          // initialValues={userData}
           onFinish={onFinish}
         >
           <Form.Item label="User full name" name="fullName">
