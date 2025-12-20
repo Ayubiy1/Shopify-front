@@ -27,7 +27,7 @@ const AdminDashboard = () => {
         </Col>
 
         <Col md={24} xl={12}>
-          <Card title="Oxirgi buyurtmalar" className="mt-[10px]">
+          <Card title="Oxirgi buyurtmalar">
             <RecentOrdersTable />
           </Card>
         </Col>

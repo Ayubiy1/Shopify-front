@@ -42,8 +42,8 @@ const CartPage = () => {
       return res.data;
     },
   });
-  console.log(data);
 
+  // Korzinkadagi 1ta productni olish
   const { data: productData, isLoading: productIsloading } = useQuery({
     queryKey: ["product-data-by-id", open, productId],
     queryFn: async () => {
@@ -61,6 +61,7 @@ const CartPage = () => {
     },
   });
 
+  // Productni sotib olish uchn
   const { mutate: buyMutation } = useMutation({
     mutationFn: async (data) => {
       console.log(data);
@@ -103,7 +104,7 @@ const CartPage = () => {
               width={100}
               height={100}
               style={{ borderRadius: 6 }}
-              alt="Shopping UZ"
+              alt={row?.title}
             />
             <div>
               <strong>{row.title}</strong>

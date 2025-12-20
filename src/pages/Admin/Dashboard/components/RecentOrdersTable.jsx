@@ -7,7 +7,7 @@ const RecentOrdersTable = () => {
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/admin/orders",
+        "https://shopify-backend-vcnq.onrender.com/api/stock-history",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -19,9 +19,21 @@ const RecentOrdersTable = () => {
   });
 
   const columns = [
-    { title: "Customer", dataIndex: "title" },
-    { title: "Total", dataIndex: "count" },
-    { title: "Total Sum", dataIndex: "price" },
+    {
+      title: "Customer",
+      dataIndex: "title",
+    },
+    {
+      title: "Total",
+      dataIndex: "changed",
+      render: (_, record) => {
+        return Math.abs(record.changed);
+      },
+    },
+    {
+      title: "Total Sum",
+      dataIndex: "totalPrice",
+    },
   ];
 
   return <Table dataSource={data} columns={columns} pagination={false} />;

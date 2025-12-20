@@ -20,7 +20,6 @@ const CategoriesPage = () => {
 
   return (
     <>
-      asda
       <Row gutter={[16, 16]} className="justify-center p-2">
         {products?.map((item) => {
           console.log(item?.images[0]);

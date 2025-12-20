@@ -44,7 +44,7 @@ const ProductNameId = () => {
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("https://shopify-backend-vcnq.onrender.com/api/cart/add", product, {
+      axios.post("http://localhost:5000/api/cart/add", product, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },
