@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import axios from "axios";
 
 import "./ProductsCard.css";
@@ -15,17 +15,20 @@ const ProductsCard = ({ categry_name, categry_path }) => {
         "https://shopify-backend-vcnq.onrender.com/api/products/"
       );
 
-      return res;
+      return res?.data;
     },
   });
+  console.log(data?.filter((p) => p.category == categry_path));
 
   return (
     <>
-      <h1>{categry_name}</h1>
+      <h1 className="text-[25px] w-full" style={{ fontWeight: "bold" }}>
+        {data?.filter((p) => p.category == categry_path) != [] && categry_name}
+      </h1>
 
-      <Row className="flex items-center mt-[20px]">
-        {data?.data
-          .filter((p) => p.category == categry_path)
+      <Row className="flex items-center mt-[-5px]">
+        {data
+          ?.filter((p) => p.category == categry_path)
           ?.map((prduct, indx) => {
             return (
               <Col
@@ -57,7 +60,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
                     <span className="line-through" style={{ color: "gray" }}>
                       {prduct?.price / 0.8} $
                     </span>
-                    <span>{prduct?.name}</span>
+                    <span>{prduct?.name.slice(0, 18)}...</span>
                   </div>
                 </div>
               </Col>

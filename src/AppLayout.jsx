@@ -1,4 +1,3 @@
-import React from "react";
 import CategoriesPage from "./pages/Products/Products";
 import Corusel from "./components/corusel";
 
@@ -12,11 +11,13 @@ const AppLayout = () => {
 
       <CategoriesPage />
 
-      <ProductsCard categry_path="phone" categry_name="Phone" />
+      <div className="mt-[20px]">
+        <ProductsCard categry_path="phone" categry_name="Phone" />
 
-      <ProductsCard categry_path="clothes" categry_name="Clothing" />
+        <ProductsCard categry_path="clothes" categry_name="Clothing" />
 
-      <ProductsCard categry_path="electronics" categry_name="Electronics" />
+        <ProductsCard categry_path="electronics" categry_name="Electronics" />
+      </div>
     </div>
   );
 };

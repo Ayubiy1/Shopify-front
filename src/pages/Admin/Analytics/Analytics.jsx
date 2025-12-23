@@ -14,7 +14,7 @@ const Analytics = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: ["corusel-analytics-admin"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/api/corusel");
+      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/corusel");
       return res.data;
     },
   });

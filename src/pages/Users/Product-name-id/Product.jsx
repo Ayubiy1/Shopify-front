@@ -3,13 +3,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image, message } from "antd";
-import { useForm } from "antd/es/form/Form";
 
 import "./Product.css";
+import ProductsCard from "../../../components/Products-card/ProductsCard";
 
 const ProductNameId = () => {
-  const [form] = useForm();
-
   const { id } = useParams();
   const queryClient = useQueryClient();
 
@@ -19,6 +17,8 @@ const ProductNameId = () => {
   const [countProduct, setCountProduct] = useState(1);
   const [combination, setCombination] = useState(null);
   const [loadingAddCart, setLoadingAddCart] = useState();
+  const [categorysName, setCategorysName] = useState(null);
+  const [imageIndx, setimageIndx] = useState(null);
 
   // PRODUCTNI OLIB KELISH
   const { data, isLoading, isError } = useQuery({
@@ -33,6 +33,24 @@ const ProductNameId = () => {
     },
   });
 
+  const { data: categorysData, isLoading: categorysLoading } = useQuery({
+    queryKey: ["categorys-data-for-path", id],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://shopify-backend-vcnq.onrender.com/api/categories",
+        { withCredentials: true }
+      );
+
+      setCategorysName(
+        res.data.map((c) => {
+          return { slug: c.slug, name: c.name };
+        })
+      );
+
+      return res.data;
+    },
+  });
+
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
       return axios.put(
@@ -44,7 +62,7 @@ const ProductNameId = () => {
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("http://localhost:5000/api/cart/add", product, {
+      axios.post("https://shopify-backend-vcnq.onrender.com/api/cart/add", product, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },
@@ -76,7 +94,6 @@ const ProductNameId = () => {
     const v = data.variants.find((v) =>
       Object.entries(d).every(([key, val]) => v.combination[key] === val)
     );
-    console.log(v);
 
     setSelectedVariant(v ?? null);
   }, [data]);
@@ -126,17 +143,6 @@ const ProductNameId = () => {
   const handleAddToCart = () => {
     if (!selectedVariant) return;
     if (selectedVariant.stock === 0) return message.error("Tugagan variant!");
-    console.log(selectedVariant);
-
-    console.log({
-      count: countProduct,
-      productId: id,
-      variantId: selectedVariant?._id,
-      title: data.name,
-      combination: selectedVariant.combination,
-      images: selectedVariant.images,
-      price: selectedVariant.price,
-    });
 
     mutate({
       count: countProduct,
@@ -182,9 +188,11 @@ const ProductNameId = () => {
         <div className="">
           <div className="flex gap-2 w-1/4 md:w-1/1 overflow-y-scroll hidden-scrollbar my-[10px]">
             {imagesToShow?.map((img, i) => (
-              <img
+              <Image
                 key={i}
                 src={img}
+                width={80}
+                height={80}
                 className="w-[80px] h-[80px] object-cover rounded cursor-pointer"
                 style={{
                   border:
@@ -192,7 +200,10 @@ const ProductNameId = () => {
                       ? "2px solid black"
                       : "2px solid transparent",
                 }}
-                onClick={() => setImageIndex(i)}
+                onClick={() => {
+                  setImageIndex(i);
+                  setimageIndx(i);
+                }}
               />
             ))}
           </div>
@@ -213,7 +224,7 @@ const ProductNameId = () => {
             )}
           </div>
         </div>
-
+        dasda
         {/* RIGHT — DETAILS */}
         <div className="lg:w-[500px] flex flex-col gap-5">
           <p className="text-xl text-green-600 font-bold">
@@ -336,6 +347,14 @@ const ProductNameId = () => {
           </div>
         </div>
       </div>
+
+      {categorysName?.map((c) => {
+        return (
+          <div className="mt-[30px] w-full">
+            <ProductsCard categry_name={c.name} categry_path={c.slug} />
+          </div>
+        );
+      })}
     </div>
   );
 };

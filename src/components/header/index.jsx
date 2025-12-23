@@ -52,7 +52,7 @@ export default function HeaderComp() {
           <span
             className="header__logo-text cursor-pointer"
             onClick={() => {
-              navigate("/");
+              navigate("/users");
             }}
           >
             Shopping UZ
@@ -68,11 +68,17 @@ export default function HeaderComp() {
         <SearchComp />
 
         <div className="header__actions">
-          <div className="header__action-item">
-            <UserOutlined />
+          <div
+            className="header__action-item"
+            onClick={() => {
+              onClose();
+              navigate("/users/profil");
+            }}
+          >
+            <UserOutlined /> Profil
           </div>
           <div className="header__action-item">
-            <HeartOutlined />
+            <HeartOutlined /> Saralanganlar
           </div>
           <div
             className="header__action-item"
@@ -80,7 +86,7 @@ export default function HeaderComp() {
               navigate("/users/cart");
             }}
           >
-            <ShoppingCartOutlined />
+            <ShoppingCartOutlined /> Korinka
           </div>
         </div>
       </div>
@@ -155,7 +161,7 @@ export default function HeaderComp() {
             className="header__action-item"
             onClick={() => {
               onClose();
-              navigate("/users/profile");
+              navigate("/users/profil");
             }}
           >
             <UserOutlined />

@@ -48,21 +48,16 @@ const Login = () => {
     console.log("Decoded:", decoded); // name, email, picture
 
     // Backendga yuborish
-    const res = await fetch("https://shopify-backend-vcnq.onrender.com/api/auth/google", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: credentialResponse.credential }),
-    });
-
-    // const res = await fetch("https://shopify-backend-vcnq.onrender.comauth/google", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ token: credentialResponse.credential }),
-    // });
-    console.log(res, "res");
+    const res = await fetch(
+      "https://shopify-backend-vcnq.onrender.com/api/auth/google",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: credentialResponse.credential }),
+      }
+    );
 
     const data = await res.json();
-    console.log(data);
 
     localStorage.setItem("token", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
@@ -77,8 +72,6 @@ const Login = () => {
       navigate("/seller");
     }
     alert("Success");
-
-    console.log("Backend response:", data);
   };
 
   const onFinish = (values) => {
@@ -110,6 +103,7 @@ const Login = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           layout="vertical"
+          className="flex flex-col items-center justify-center"
         >
           <Form.Item
             label="Email"
@@ -122,7 +116,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input />
+            <Input className="w-[444px]" />
           </Form.Item>
 
           <Form.Item
@@ -132,15 +126,14 @@ const Login = () => {
               { required: true, message: "Iltimos Passwordingizni kiriting!" },
             ]}
           >
-            <Input.Password />
+            <Input.Password className="w-[444px]" />
           </Form.Item>
 
-          <Form.Item label={null}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
+          <Button type="primary" htmlType="submit" className="mb-[15px]">
+            Submit
+          </Button>
         </Form>
+
         <GoogleLogin
           onSuccess={handleLogin}
           onError={() => {

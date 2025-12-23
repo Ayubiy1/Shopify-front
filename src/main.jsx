@@ -22,6 +22,7 @@ import AdminCorusel from "./pages/Admin/Corusel/AdminCorusel.jsx";
 import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard.jsx";
 import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
 import StockHistoryPage from "./pages/Admin/Products/StockHistoryPage.jsx";
+import ProfileP from "./pages/Users/Profile/Profile.jsx";
 
 axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/";
 axios.defaults.withCredentials = true;
@@ -74,7 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/users/profil",
         element: (
-          <ProtectedRoute allowedRoles={["buyer"]}>Profil</ProtectedRoute>
+          <ProtectedRoute allowedRoles={["buyer"]}>
+            <ProfileP />
+            
+          </ProtectedRoute>
         ),
       },
     ],
@@ -141,6 +145,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
   { path: "/unauthorized", element: <h1>🚫 Kirish mumkin emas</h1> },
@@ -159,22 +164,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </GoogleOAuthProvider>
 );
-
-{
-  // import { StrictMode } from 'react'
-  // import { createRoot } from 'react-dom/client'
-  // import './index.css'
-  // import App from './App.jsx'
-  // import { BrowserRouter } from 'react-router-dom'
-  // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-  // const queryClient = new QueryClient();
-  // createRoot(document.getElementById('root')).render(
-  //   <StrictMode>
-  //     <QueryClientProvider client={queryClient}>
-  //       <BrowserRouter>
-  //         <App />
-  //       </BrowserRouter>
-  //     </QueryClientProvider>
-  //   </StrictMode>,
-  // )
-}

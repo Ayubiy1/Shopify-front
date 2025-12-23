@@ -13,6 +13,7 @@ import { useLocalStorageState } from "ahooks";
 import { CiViewTable } from "react-icons/ci";
 import { FaHistory } from "react-icons/fa";
 import { FcAdvertising } from "react-icons/fc";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const { Sider, Header, Content } = Layout;
 
@@ -100,6 +101,7 @@ const AdminLayout = () => {
             fontSize: "18px",
             fontWeight: "bold",
           }}
+          className="flex items-center justify-between"
         >
           <Button
             onClick={() => {
@@ -107,6 +109,17 @@ const AdminLayout = () => {
             }}
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </Button>
+
+          <Button
+            type="primary"
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+            }}
+          >
+            Log out
+            <AiOutlineLogout />
           </Button>
         </Header>
 
