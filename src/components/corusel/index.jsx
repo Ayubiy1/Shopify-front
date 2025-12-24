@@ -18,7 +18,7 @@ const Corusel = () => {
     queryKey: ["corusel-user"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/corusel/",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/",
         { withCredentials: true }
       );
 
@@ -28,12 +28,12 @@ const Corusel = () => {
 
   useEffect(() => {
     data?.forEach((item) => {
-      axios.patch(`https://shopify-backend-vcnq.onrender.com/api/corusel/${item._id}/view`);
+      axios.patch(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${item._id}/view`);
     });
   }, []);
 
   const handleClick = (id) => {
-    axios.patch(`https://shopify-backend-vcnq.onrender.com/api/corusel/${id}/click`);
+    axios.patch(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${id}/click`);
   };
 
   const onChange = (currentSlide) => {};

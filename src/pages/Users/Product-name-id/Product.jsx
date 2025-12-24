@@ -25,7 +25,7 @@ const ProductNameId = () => {
     queryKey: ["product-name-id", id],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/products",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products",
         { withCredentials: true }
       );
 
@@ -37,7 +37,7 @@ const ProductNameId = () => {
     queryKey: ["categorys-data-for-path", id],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/categories",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/categories",
         { withCredentials: true }
       );
 
@@ -54,7 +54,7 @@ const ProductNameId = () => {
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
       return axios.put(
-        `https://shopify-backend-vcnq.onrender.com/api/products${1}`
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products${1}`
       );
     },
   });
@@ -62,7 +62,7 @@ const ProductNameId = () => {
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("https://shopify-backend-vcnq.onrender.com/api/cart/add", product, {
+      axios.post("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/add", product, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
         },

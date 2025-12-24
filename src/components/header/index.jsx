@@ -21,7 +21,7 @@ export default function HeaderComp() {
     queryKey: ["products-user"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/categories/",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/categories/",
         { withCredentials: true }
       );
       return res.data;

@@ -10,7 +10,7 @@ const Register = () => {
   const { mutate } = useMutation({
     mutationFn: async (newUser) => {
       const res = await axios.post(
-        "https://shopify-backend-vcnq.onrender.com/api/auth/register",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/register",
         newUser,
         { withCredentials: true }
       );
@@ -30,7 +30,7 @@ const Register = () => {
   //       console.log(newUser);
 
   //       const res = await axios.post(
-  //         "https://shopify-backend-vcnq.onrender.com/api/auth/register",
+  //         "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/register",
   //         newUser
   //       );
   //       console.log(res);

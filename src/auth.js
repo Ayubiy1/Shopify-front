@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    "https://shopify-backend-vcnq.onrender.com" || "https://shopify-backend-vcnq.onrender.com/", // backend manzilingiz
+    "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app" || "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/", // backend manzilingiz
   withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
 });
 

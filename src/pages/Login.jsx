@@ -12,7 +12,7 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: async (user) => {
       const res = await axios.post(
-        "https://shopify-backend-vcnq.onrender.com/api/auth/login",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/login",
         user,
         { withCredentials: true }
       );
@@ -49,7 +49,7 @@ const Login = () => {
 
     // Backendga yuborish
     const res = await fetch(
-      "https://shopify-backend-vcnq.onrender.com/api/auth/google",
+      "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/google",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

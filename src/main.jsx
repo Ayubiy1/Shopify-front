@@ -24,7 +24,7 @@ import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
 import StockHistoryPage from "./pages/Admin/Products/StockHistoryPage.jsx";
 import ProfileP from "./pages/Users/Profile/Profile.jsx";
 
-axios.defaults.baseURL = "https://shopify-backend-vcnq.onrender.com/";
+axios.defaults.baseURL = "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {

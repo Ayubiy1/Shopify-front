@@ -11,7 +11,7 @@ const SearchComp = () => {
     queryKey: ["search", searchValue],
     queryFn: () => async (query) => {
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/products/search?q=${query}`,
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products/search?q=${query}`,
         { withCredentials: true }
       );
 

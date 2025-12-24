@@ -12,7 +12,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     queryKey: "products-card",
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/products/"
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products/"
       );
 
       return res?.data;

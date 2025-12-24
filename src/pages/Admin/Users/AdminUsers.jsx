@@ -25,7 +25,7 @@ const AdminUsers = () => {
     queryKey: ["Admin-users-query"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/users"
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users"
       );
       return res.data;
     },
@@ -34,7 +34,7 @@ const AdminUsers = () => {
     queryKey: ["Admin-user-query"],
     queryFn: async () => {
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/users/${choosedUser}`
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${choosedUser}`
       );
       return res.data;
     },
@@ -43,7 +43,7 @@ const AdminUsers = () => {
     mutationKey: ["Admin-user-update"],
     mutationFn: async (upData) =>
       await axios.put(
-        `https://shopify-backend-vcnq.onrender.com/api/users/${choosedUser}`,
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${choosedUser}`,
         upData
       ),
     onSuccess: () => {

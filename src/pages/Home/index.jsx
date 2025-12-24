@@ -6,7 +6,7 @@ const Home = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/users/",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/",
         { withCredentials: true }
       );
       return res.data;

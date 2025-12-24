@@ -14,7 +14,7 @@ const Analytics = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: ["corusel-analytics-admin"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/corusel");
+      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel");
       return res.data;
     },
   });

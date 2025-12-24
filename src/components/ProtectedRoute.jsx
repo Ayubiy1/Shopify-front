@@ -11,7 +11,7 @@ export default function ProtectedRoute({ children, allowedRoles }) {
     const checkUser = async () => {
       try {
         const res = await axios.get(
-          "https://shopify-backend-vcnq.onrender.com/api/auth/me",
+          "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/me",
           {
             withCredentials: true, // cookie yuboriladi
             headers: {

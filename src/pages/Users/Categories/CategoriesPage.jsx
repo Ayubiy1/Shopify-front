@@ -11,7 +11,7 @@ const CategoriesPage = () => {
     queryKey: ["product-by-categoryId", id],
     queryFn: async () => {
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/products`,
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products`,
         { withCredentials: true }
       );
       return res.data.filter((i) => i.categoryId == id);

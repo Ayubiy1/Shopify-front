@@ -7,7 +7,7 @@ const RecentOrdersTable = () => {
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://shopify-backend-vcnq.onrender.com/api/stock-history",
+        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/stock-history",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

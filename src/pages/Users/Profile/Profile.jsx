@@ -11,7 +11,7 @@ const ProfileP = () => {
   const { data, isLoading: queryLoading } = useQuery({
     queryKey: ["user-profile-data"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/users/me", {
+      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/me", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -25,7 +25,7 @@ const ProfileP = () => {
     mutationKey: ["user-profile-update"],
     mutationFn: async (updatedData) =>
       await axios.put(
-        `https://shopify-backend-vcnq.onrender.com/api/users/${updatedData.id}`,
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${updatedData.id}`,
         updatedData,
         {
           headers: {
@@ -117,7 +117,7 @@ export default ProfileP;
 //   const { data } = useQuery({
 //     queryKey: ["user-profil-data"],
 //     queryFn: async () => {
-//       const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/users/me", {
+//       const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/me", {
 //         headers: {
 //           Authorization: `Bearer ${localStorage.getItem("token")}`,
 //         },
@@ -130,7 +130,7 @@ export default ProfileP;
 //     mutationKey: ["user-profil-update"],
 //     mutationFn: async (updatedData) =>
 //       await axios.put(
-//         `https://shopify-backend-vcnq.onrender.com/api/users/${updatedData.id}`,
+//         `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${updatedData.id}`,
 //         updatedData
 //       ),
 //     onSuccess: () => {

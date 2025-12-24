@@ -27,7 +27,7 @@ const AdminCorusel = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-corusels"],
     queryFn: async () => {
-      const res = await axios.get("https://shopify-backend-vcnq.onrender.com/api/corusel");
+      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel");
       return res.data;
     },
   });
@@ -37,7 +37,7 @@ const AdminCorusel = () => {
     enabled: !!choosedCorsel,
     queryFn: async () => {
       const res = await axios.get(
-        `https://shopify-backend-vcnq.onrender.com/api/corusel/${choosedCorsel}`
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${choosedCorsel}`
       );
       return res.data;
     },
@@ -48,7 +48,7 @@ const AdminCorusel = () => {
     mutationKey: "update-corusel",
     mutationFn: async (upProduct) =>
       axios.put(
-        `https://shopify-backend-vcnq.onrender.com/api/corusel/${choosedCorsel}`,
+        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${choosedCorsel}`,
         upProduct
       ),
     onSuccess: () => {
@@ -62,7 +62,7 @@ const AdminCorusel = () => {
   const { mutate: addMuatate } = useMutation({
     mutationKey: "add-corusel-admin",
     mutationFn: async (data) =>
-      axios.post(`https://shopify-backend-vcnq.onrender.com/api/corusel/`, data),
+      axios.post(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/`, data),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -74,7 +74,7 @@ const AdminCorusel = () => {
   const { mutate: deleteMuatate } = useMutation({
     mutationKey: "delete-corusel-admin",
     mutationFn: async (id) =>
-      axios.delete(`https://shopify-backend-vcnq.onrender.com/api/corusel/${id}`),
+      axios.delete(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${id}`),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
