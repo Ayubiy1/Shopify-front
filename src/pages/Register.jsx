@@ -10,7 +10,7 @@ const Register = () => {
   const { mutate } = useMutation({
     mutationFn: async (newUser) => {
       const res = await axios.post(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/register",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/register",
         newUser,
         { withCredentials: true }
       );
@@ -24,27 +24,6 @@ const Register = () => {
       alert("Registered");
     },
   });
-
-  //   const { mutate } = useMutation({
-  //     mutationFn: async (newUser) => {
-  //       console.log(newUser);
-
-  //       const res = await axios.post(
-  //         "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/register",
-  //         newUser
-  //       );
-  //       console.log(res);
-
-  //       return res.data;
-  //     },
-  //     onSuccess: (res) => {
-  //       console.log(res?.token);
-  //       localStorage.setItem("token", res.token);
-  //       navigate("/login");
-
-  //       alert("Succes");
-  //     },
-  //   });
 
   const onFinish = (values) => {
     if (values.password.length < 6)

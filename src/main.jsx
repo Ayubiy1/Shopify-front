@@ -23,8 +23,12 @@ import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard.jsx";
 import AdminOrders from "./pages/Admin/Users/AdminOrders.jsx";
 import StockHistoryPage from "./pages/Admin/Products/StockHistoryPage.jsx";
 import ProfileP from "./pages/Users/Profile/Profile.jsx";
+import RegisterSeller from "./pages/Register-seller.jsx";
+import SellerProducts from "./pages/Saler/Products.jsx";
+import StatisticProducts from "./pages/Saler/StatisticSeller.jsx.jsx";
 
-axios.defaults.baseURL = "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/";
+axios.defaults.baseURL =
+  "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <UserPage />, // layout
     children: [
+      {
+        path: "/",
+        element: <AppLayout />,
+      },
       {
         path: "/users",
         element: (
@@ -77,7 +85,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute allowedRoles={["buyer"]}>
             <ProfileP />
-            
           </ProtectedRoute>
         ),
       },
@@ -144,13 +151,31 @@ const router = createBrowserRouter([
         <SellerPage />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        path: "/seller",
+        element: (
+          <ProtectedRoute allowedRoles={["seller"]}>
+            <StatisticProducts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/seller/products",
+        element: (
+          <ProtectedRoute allowedRoles={["seller"]}>
+            <SellerProducts />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
 
   { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
+  { path: "/register-seller", element: <RegisterSeller /> },
   { path: "/unauthorized", element: <h1>🚫 Kirish mumkin emas</h1> },
 ]);
-
 
 const queryClient = new QueryClient();
 const CLIENT_ID =

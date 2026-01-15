@@ -6,10 +6,13 @@ const StatsCards = () => {
   const { data: stats } = useQuery({
     queryKey: ["admin-stats-carts"],
     queryFn: async () => {
-      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/admin/stats", {
-        withCredentials: true,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.get(
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/admin/stats",
+        {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       return res.data;
     },
   });

@@ -9,7 +9,7 @@ const AdminOrders = () => {
   const { data } = useQuery({
     queryKey: ["admin-orders"],
     queryFn: async () =>
-      await axios.get(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart`),
+      await axios.get(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart`),
   });
 
   const columns = [

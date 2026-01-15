@@ -17,10 +17,9 @@ const Corusel = () => {
   const { data } = useQuery({
     queryKey: ["corusel-user"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/",
-        { withCredentials: true }
-      );
+      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/", {
+        withCredentials: true,
+      });
 
       return res?.data;
     },
@@ -28,12 +27,12 @@ const Corusel = () => {
 
   useEffect(() => {
     data?.forEach((item) => {
-      axios.patch(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${item._id}/view`);
+      axios.patch(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${item._id}/view`);
     });
   }, []);
 
   const handleClick = (id) => {
-    axios.patch(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${id}/click`);
+    axios.patch(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${id}/click`);
   };
 
   const onChange = (currentSlide) => {};

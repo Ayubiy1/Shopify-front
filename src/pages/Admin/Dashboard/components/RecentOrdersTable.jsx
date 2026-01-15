@@ -6,14 +6,11 @@ const RecentOrdersTable = () => {
   const { data } = useQuery({
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/stock-history",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/stock-history", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       return res.data;
     },
   });

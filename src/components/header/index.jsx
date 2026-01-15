@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function HeaderComp() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const [open, setOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export default function HeaderComp() {
     queryKey: ["products-user"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/categories/",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/categories/",
         { withCredentials: true }
       );
       return res.data;
@@ -66,30 +67,44 @@ export default function HeaderComp() {
         </div>
 
         <SearchComp />
-
-        <div className="header__actions">
-          <div
-            className="header__action-item"
+        {token ? (
+          <div className="header__actions">
+            <div
+              className="header__action-item"
+              onClick={() => {
+                onClose();
+                navigate("/users/profil");
+              }}
+            >
+              <UserOutlined />
+              {/* <span className="hidden">Profil</span> */}
+            </div>
+            <div className="header__action-item">
+              <HeartOutlined />
+              {/* <span className="hidden">Saralanganlar</span> */}
+            </div>
+            <div
+              className="header__action-item"
+              onClick={() => {
+                navigate("/users/cart");
+              }}
+            >
+              <ShoppingCartOutlined />
+              {/* <span className="hidden">Korinka</span> */}
+            </div>
+          </div>
+        ) : (
+          <Button
             onClick={() => {
-              onClose();
-              navigate("/users/profil");
+              navigate("/login");
             }}
           >
-            <UserOutlined /> Profil
-          </div>
-          <div className="header__action-item">
-            <HeartOutlined /> Saralanganlar
-          </div>
-          <div
-            className="header__action-item"
-            onClick={() => {
-              navigate("/users/cart");
-            }}
-          >
-            <ShoppingCartOutlined /> Korinka
-          </div>
-        </div>
+            Log in
+          </Button>
+        )}
       </div>
+
+      {/* ------------------------------------------------------------------------------------- */}
 
       <div className="nav">
         <div
@@ -119,7 +134,6 @@ export default function HeaderComp() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            // width: "50%",
             border: "1px solid rgba(54,55,64,.2)",
             borderRadius: "6px",
             height: "32px",

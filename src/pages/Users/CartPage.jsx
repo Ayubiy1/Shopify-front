@@ -31,7 +31,7 @@ const CartPage = () => {
     queryKey: ["korzinka"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/me",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/me",
         { withCredentials: true },
         {
           headers: {
@@ -48,7 +48,7 @@ const CartPage = () => {
     queryKey: ["product-data-by-id", open, productId],
     queryFn: async () => {
       const res = await axios.get(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/${productId}`,
+        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/${productId}`,
         { withCredentials: true },
         {
           headers: {
@@ -66,10 +66,7 @@ const CartPage = () => {
     mutationFn: async (data) => {
       console.log(data);
 
-      return axios.post(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/buy`,
-        data
-      );
+      return axios.post(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/buy`, data);
     },
     onSuccess: () => {
       deleteMutation(productId);
@@ -82,9 +79,7 @@ const CartPage = () => {
   // 🗑 CART ITEMni O‘CHIRISH
   const { mutate: deleteMutation, isLoading: deleteisLoading } = useMutation({
     mutationFn: async (id) =>
-      axios.delete(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/remove/${id}`
-      ),
+      axios.delete(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/remove/${id}`),
     onSuccess: () => {
       message.success("O‘chirildi!");
       refetch(); // table yangilansin
@@ -122,7 +117,7 @@ const CartPage = () => {
       dataIndex: "price",
       key: "price",
       render: (p, _) => {
-        return `$${p}`;
+        return `${p.toLocaleString("uz-UZ")} so'm`;
       },
     },
     {
@@ -134,7 +129,8 @@ const CartPage = () => {
     {
       title: "Jami",
       key: "count",
-      render: (_, record) => `${record?.price * record?.count}$`,
+      render: (_, record) =>
+        `${(record?.price * record?.count).toLocaleString("uz-UZ")} so'm`,
     },
     {
       title: "Amallar",
@@ -181,8 +177,11 @@ const CartPage = () => {
       {data && data.length > 0 && (
         <div className="flex justify-end mt-5">
           <h2 className="text-xl font-bold">
-            Jami: $
-            {data.reduce((sum, item) => sum + item.price * item?.count, 0)}
+            Jami:{" "}
+            {data
+              .reduce((sum, item) => sum + item.price * item?.count, 0)
+              .toLocaleString("uz-UZ")}{" "}
+            so'm
           </h2>
         </div>
       )}

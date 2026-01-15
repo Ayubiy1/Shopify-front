@@ -27,7 +27,7 @@ const AdminCorusel = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-corusels"],
     queryFn: async () => {
-      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel");
+      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel");
       return res.data;
     },
   });
@@ -37,7 +37,7 @@ const AdminCorusel = () => {
     enabled: !!choosedCorsel,
     queryFn: async () => {
       const res = await axios.get(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${choosedCorsel}`
+        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${choosedCorsel}`
       );
       return res.data;
     },
@@ -48,7 +48,7 @@ const AdminCorusel = () => {
     mutationKey: "update-corusel",
     mutationFn: async (upProduct) =>
       axios.put(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${choosedCorsel}`,
+        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${choosedCorsel}`,
         upProduct
       ),
     onSuccess: () => {
@@ -62,7 +62,7 @@ const AdminCorusel = () => {
   const { mutate: addMuatate } = useMutation({
     mutationKey: "add-corusel-admin",
     mutationFn: async (data) =>
-      axios.post(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/`, data),
+      axios.post(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/`, data),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -74,7 +74,7 @@ const AdminCorusel = () => {
   const { mutate: deleteMuatate } = useMutation({
     mutationKey: "delete-corusel-admin",
     mutationFn: async (id) =>
-      axios.delete(`https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/corusel/${id}`),
+      axios.delete(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${id}`),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -180,7 +180,7 @@ const AdminCorusel = () => {
     <>
       {/* {data && <Analytics />} */}
 
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-[15px]">
         <h2>Corusel</h2>
         <Button
           type="primary"
@@ -199,7 +199,7 @@ const AdminCorusel = () => {
         columns={columns}
         dataSource={data}
         rowKey="_id"
-        style={{ width: "80%" }}
+        // style={{ width: "80%" }}
         className="mx-auto"
         scroll={{ x: 1000, y: 90 * 5 }}
       />

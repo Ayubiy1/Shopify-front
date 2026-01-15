@@ -6,7 +6,7 @@ const ProductsPage = () => {
     queryKey: ["products-user"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products/",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/",
         { withCredentials: true }
       );
       return res.data;

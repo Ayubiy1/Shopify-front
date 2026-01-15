@@ -12,7 +12,7 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: async (user) => {
       const res = await axios.post(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/login",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/login",
         user,
         { withCredentials: true }
       );
@@ -49,7 +49,7 @@ const Login = () => {
 
     // Backendga yuborish
     const res = await fetch(
-      "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/google",
+      "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/google",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL:
-    "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app" || "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/", // backend manzilingiz
+  baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/", // backend manzilingiz
+  // "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app" ||
   withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
 });
 

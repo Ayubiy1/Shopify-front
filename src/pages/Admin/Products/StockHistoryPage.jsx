@@ -7,7 +7,7 @@ const StockHistoryPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["stock-history"],
     queryFn: async () => {
-      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/stock-history");
+      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/stock-history");
       return res.data;
     },
   });

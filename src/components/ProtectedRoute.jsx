@@ -10,15 +10,12 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const res = await axios.get(
-          "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/auth/me",
-          {
-            withCredentials: true, // cookie yuboriladi
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/me", {
+          withCredentials: true, // cookie yuboriladi
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setUser(res.data);
       } catch (err) {
         setUser(null);

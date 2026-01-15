@@ -6,7 +6,7 @@ const Home = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/",
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/",
         { withCredentials: true }
       );
       return res.data;

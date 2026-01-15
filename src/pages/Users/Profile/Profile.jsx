@@ -2,20 +2,27 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, Input, Form, message } from "antd";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Resend } from "resend";
 
+const resend = new Resend("re_fSLgK9hM_CP52dMrd7M4Hbq812zKM3Lrb");
 const ProfileP = () => {
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   // 1️⃣ Foydalanuvchi ma’lumotlarini olish
   const { data, isLoading: queryLoading } = useQuery({
     queryKey: ["user-profile-data"],
     queryFn: async () => {
-      const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/me", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await axios.get(
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/me",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return res.data;
     },
   });
@@ -25,7 +32,7 @@ const ProfileP = () => {
     mutationKey: ["user-profile-update"],
     mutationFn: async (updatedData) =>
       await axios.put(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${updatedData.id}`,
+        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/${updatedData.id}`,
         updatedData,
         {
           headers: {
@@ -62,7 +69,18 @@ const ProfileP = () => {
 
     if (!values.password) delete payload.password; // password bo‘lsa jo‘natamiz
 
+    console.log(payload);
+
     mutate(payload);
+  };
+
+  const sentMessageEmail = ({ email }) => {
+    resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: email,
+      subject: "Hello World",
+      html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
+    });
   };
 
   return (
@@ -90,108 +108,29 @@ const ProfileP = () => {
           <Input.Password placeholder="Ixtiyoriy" style={{ width: "555px" }} />
         </Form.Item>
 
-        <Button
-          type="primary"
-          htmlType="submit"
-          loading={updateLoading || queryLoading} // query yoki mutate loading
-          block
-        >
-          Saqlash
-        </Button>
+        <div className="w-[100%] flex gap-2 items-center justify-center">
+          <Button
+            className="w-[66%]"
+            type="primary"
+            htmlType="submit"
+            loading={updateLoading || queryLoading} // query yoki mutate loading
+            block
+          >
+            Saqlash
+          </Button>
+          <Button
+            className="w-[34%]"
+            onClick={() => {
+              navigate("/login");
+              localStorage.clear();
+            }}
+          >
+            Log Out
+          </Button>
+        </div>
       </Form>
     </div>
   );
 };
 
 export default ProfileP;
-
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { Button, Input, Form, Card } from "antd";
-// import axios from "axios";
-// import { useEffect } from "react";
-
-// const ProfileP = () => {
-//   const [form] = Form.useForm();
-//   const queryClient = useQueryClient();
-
-//   const { data } = useQuery({
-//     queryKey: ["user-profil-data"],
-//     queryFn: async () => {
-//       const res = await axios.get("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/me", {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       });
-//       return res.data;
-//     },
-//   });
-
-//   const { mutate, isLoading: updateLoading } = useMutation({
-//     mutationKey: ["user-profil-update"],
-//     mutationFn: async (updatedData) =>
-//       await axios.put(
-//         `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/users/${updatedData.id}`,
-//         updatedData
-//       ),
-//     onSuccess: () => {
-//       message.success("Mahsulot qo‘shildi!");
-//       queryClient.invalidateQueries(["user-profil-data"]);
-//       setOpen(false);
-//     },
-//   });
-
-//   useEffect(() => {
-//     form.setFieldsValue({
-//       email: data?.email,
-//       createdAt: data?.createdAt,
-//       email: data?.email,
-//       fullName: data?.fullName,
-//       role: data?.role,
-//     });
-//   }, [data]);
-
-//   const onFinish = (values) => {
-//     const payload = { id: data?._id, ...values };
-
-//     if (!values?.password) {
-//       delete payload.password;
-//     }
-
-//     mutate(payload);
-//   };
-
-//   return (
-//     <div className="flex justify-center mt-10">
-//       <Form
-//         form={form}
-//         layout="vertical"
-//         onFinish={onFinish}
-//         style={{ width: "555px" }}
-//         initialValues={data}
-//         className="h-[80vh] w-full flex flex-col items-center justify-center"
-//       >
-//         <Form.Item label="To'iq ism" name="fullName">
-//           <Input style={{ width: "555px" }} />
-//         </Form.Item>
-
-//         <Form.Item label="Email" name="email">
-//           <Input style={{ width: "555px" }} />
-//         </Form.Item>
-
-//         <Form.Item label="Ro'yhatdan o'tilgan kun" name="createdAt">
-//           <Input style={{ width: "555px" }} />
-//         </Form.Item>
-
-//         <Form.Item label="New Password" name="password">
-//           <Input.Password placeholder="Ixtiyoriy" style={{ width: "555px" }} />
-//         </Form.Item>
-
-//         <Button type="primary" htmlType="submit" loading={updateLoading} block>
-//           Saqlash
-//         </Button>
-//       </Form>
-//     </div>
-//   );
-// };
-
-// export default ProfileP;

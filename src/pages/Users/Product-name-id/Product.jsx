@@ -15,46 +15,28 @@ const ProductNameId = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [countProduct, setCountProduct] = useState(1);
-  const [combination, setCombination] = useState(null);
   const [loadingAddCart, setLoadingAddCart] = useState();
   const [categorysName, setCategorysName] = useState(null);
-  const [imageIndx, setimageIndx] = useState(null);
 
   // PRODUCTNI OLIB KELISH
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product-name-id", id],
     queryFn: async () => {
       const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products",
-        { withCredentials: true }
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products",
+        {
+          withCredentials: true,
+        }
       );
 
       return res.data.find((p) => p._id === id);
     },
   });
 
-  const { data: categorysData, isLoading: categorysLoading } = useQuery({
-    queryKey: ["categorys-data-for-path", id],
-    queryFn: async () => {
-      const res = await axios.get(
-        "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/categories",
-        { withCredentials: true }
-      );
-
-      setCategorysName(
-        res.data.map((c) => {
-          return { slug: c.slug, name: c.name };
-        })
-      );
-
-      return res.data;
-    },
-  });
-
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
       return axios.put(
-        `https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/products${1}`
+        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products${1}`
       );
     },
   });
@@ -62,11 +44,15 @@ const ProductNameId = () => {
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post("https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app/api/cart/add", product, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
-        },
-      }),
+      axios.post(
+        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/add",
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
+          },
+        }
+      ),
     onSuccess: (res) => {
       console.log(res);
 
@@ -187,44 +173,57 @@ const ProductNameId = () => {
         {/* LEFT — IMAGES */}
         <div className="">
           <div className="flex gap-2 w-1/4 md:w-1/1 overflow-y-scroll hidden-scrollbar my-[10px]">
-            {imagesToShow?.map((img, i) => (
-              <Image
-                key={i}
-                src={img}
-                width={80}
-                height={80}
-                className="w-[80px] h-[80px] object-cover rounded cursor-pointer"
-                style={{
-                  border:
-                    imageIndex === i
-                      ? "2px solid black"
-                      : "2px solid transparent",
-                }}
-                onClick={() => {
-                  setImageIndex(i);
-                  setimageIndx(i);
-                }}
-              />
-            ))}
+            <Image.PreviewGroup
+              preview={{
+                onChange: (current, prev) =>
+                  console.log(`current index: ${current}, prev index: ${prev}`),
+              }}
+            >
+              {imagesToShow?.map((img, i) => (
+                <Image
+                  key={i}
+                  src={img}
+                  width={80}
+                  height={80}
+                  className="w-[80px] h-[80px] object-cover rounded cursor-pointer"
+                  style={{
+                    border:
+                      imageIndex === i
+                        ? "2px solid black"
+                        : "2px solid transparent",
+                  }}
+                  onClick={() => {
+                    setImageIndex(i);
+                  }}
+                />
+              ))}
+            </Image.PreviewGroup>
           </div>
           <div className="flex gap-3 items-center">
-            <Image
-              src={imagesToShow?.[0]}
-              width={383}
-              height={444}
-              className="rounded-lg object-cover"
-            />
-            {imagesToShow?.[1] && (
+            <Image.PreviewGroup
+              preview={{
+                onChange: (current, prev) =>
+                  console.log(`current index: ${current}, prev index: ${prev}`),
+              }}
+            >
               <Image
-                src={imagesToShow?.[1]}
+                src={imagesToShow?.[0]}
                 width={383}
                 height={444}
                 className="rounded-lg object-cover"
               />
-            )}
+              {imagesToShow?.[1] && (
+                <Image
+                  src={imagesToShow?.[1]}
+                  width={383}
+                  height={444}
+                  className="rounded-lg object-cover"
+                />
+              )}
+            </Image.PreviewGroup>
           </div>
+          <h3>{data?.description}</h3>
         </div>
-        dasda
         {/* RIGHT — DETAILS */}
         <div className="lg:w-[500px] flex flex-col gap-5">
           <p className="text-xl text-green-600 font-bold">
@@ -302,7 +301,7 @@ const ProductNameId = () => {
           {/* STOCK */}
           {selectedVariant && (
             <p>
-              <strong>Qoldiq:</strong>
+              <strong>Qoldiq: </strong>
               {selectedVariant.stock > 0
                 ? selectedVariant.stock + " dona"
                 : "Tugagan"}
