@@ -1,9 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/", // backend manzilingiz
-  // "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app" ||
-  withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
+  baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
 });
 
 api.interceptors.request.use((config) => {
@@ -16,17 +14,27 @@ api.interceptors.request.use((config) => {
 
 export default api;
 
-// // src/auth.js
 // import axios from "axios";
 
 // const api = axios.create({
-//   baseURL: "http://localhost:10000/api/auth",
+//   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
+//   withCredentials: true,
 // });
 
-// api.interceptors.request.use((config) => {
-//   console.log(config.headers.Authorization);
+// // const api = axios.create({
+// //   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
+// //   withCredentials: true, // 🔴 MUHIM
+// // });
 
-//   const token = localStorage.getItem("token"); // bu endi accessToken
+// // const api = axios.create({
+// //   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/", // backend manzilingiz
+// //   withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
+// // });
+
+// // "https://thundering-sheeree-muhammadayubiy-2a80f5fe.koyeb.app" ||
+
+// api.interceptors.request.use((config) => {
+//   const token = localStorage.getItem("token");
 //   if (token) {
 //     config.headers.Authorization = `Bearer ${token}`;
 //   }

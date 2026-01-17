@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import api from "../auth";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  // "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/login",
+
   const { mutate } = useMutation({
     mutationFn: async (user) => {
-      const res = await axios.post(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/login",
-        user,
-        { withCredentials: true }
-      );
+      const res = await api.post("/api/auth/login", user);
 
-      console.log("Login response:", res);
       return res.data;
     },
     onSuccess: (res) => {
-      // localStorage.setItem("token", token);
       localStorage.setItem("token", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
 
