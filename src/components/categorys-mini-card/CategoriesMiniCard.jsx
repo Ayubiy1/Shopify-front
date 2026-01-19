@@ -9,7 +9,7 @@ const CategoriesMiniComp = () => {
     queryKey: ["Categories-mini-cards2"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/categories/",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/categories/",
         { withCredentials: true }
       );
       return res.data;

@@ -23,7 +23,7 @@ const ProductNameId = () => {
     queryKey: ["product-name-id", id],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
         {
           withCredentials: true,
         }
@@ -36,7 +36,7 @@ const ProductNameId = () => {
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
       return axios.put(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products${1}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products${1}`
       );
     },
   });
@@ -45,7 +45,7 @@ const ProductNameId = () => {
   const { mutate } = useMutation({
     mutationFn: async (product) =>
       axios.post(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/add",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/add",
         product,
         {
           headers: {

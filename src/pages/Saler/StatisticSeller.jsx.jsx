@@ -8,7 +8,7 @@ const StatisticProducts = () => {
     queryKey: ["stockhistories-products-for-seller"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/stock-history/seller",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/stock-history/seller",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -76,7 +76,7 @@ export default StatisticProducts;
   //     queryKey: ["stockhistories-products-for-seller"],
   //     queryFn: async () => {
   //       const res = await axios.get(
-  //         "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/stock-history/seller",
+  //         "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/stock-history/seller",
   //         {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,

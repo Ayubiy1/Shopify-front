@@ -15,7 +15,7 @@ const SalesChart = () => {
   const { data } = useQuery({
     queryKey: ["sales-chart"],
     queryFn: async () => {
-      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/admin/chart", {
+      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/admin/chart", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -31,7 +31,7 @@ const CartPage = () => {
     queryKey: ["korzinka"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/me",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/me",
         { withCredentials: true },
         {
           headers: {
@@ -48,7 +48,7 @@ const CartPage = () => {
     queryKey: ["product-data-by-id", open, productId],
     queryFn: async () => {
       const res = await axios.get(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/${productId}`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/${productId}`,
         { withCredentials: true },
         {
           headers: {
@@ -66,7 +66,7 @@ const CartPage = () => {
     mutationFn: async (data) => {
       console.log(data);
 
-      return axios.post(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/buy`, data);
+      return axios.post(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/buy`, data);
     },
     onSuccess: () => {
       deleteMutation(productId);
@@ -79,7 +79,7 @@ const CartPage = () => {
   // 🗑 CART ITEMni O‘CHIRISH
   const { mutate: deleteMutation, isLoading: deleteisLoading } = useMutation({
     mutationFn: async (id) =>
-      axios.delete(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/remove/${id}`),
+      axios.delete(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/remove/${id}`),
     onSuccess: () => {
       message.success("O‘chirildi!");
       refetch(); // table yangilansin

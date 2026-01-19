@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
+  baseURL: "https://angry-korie-developerayubiy-4da36956.koyeb.app",
 });
 
 api.interceptors.request.use((config) => {
@@ -17,17 +17,17 @@ export default api;
 // import axios from "axios";
 
 // const api = axios.create({
-//   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
+//   baseURL: "https://angry-korie-developerayubiy-4da36956.koyeb.app",
 //   withCredentials: true,
 // });
 
 // // const api = axios.create({
-// //   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app",
+// //   baseURL: "https://angry-korie-developerayubiy-4da36956.koyeb.app",
 // //   withCredentials: true, // 🔴 MUHIM
 // // });
 
 // // const api = axios.create({
-// //   baseURL: "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/", // backend manzilingiz
+// //   baseURL: "https://angry-korie-developerayubiy-4da36956.koyeb.app/", // backend manzilingiz
 // //   withCredentials: true, // agar cookie ishlatayotgan bo‘lsangiz
 // // });
 

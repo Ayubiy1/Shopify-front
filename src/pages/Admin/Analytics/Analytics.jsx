@@ -14,7 +14,7 @@ const Analytics = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: ["corusel-analytics-admin"],
     queryFn: async () => {
-      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel");
+      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel");
       return res.data;
     },
   });

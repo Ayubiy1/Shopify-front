@@ -7,7 +7,7 @@ const StatsCards = () => {
     queryKey: ["admin-stats-carts"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/admin/stats",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/admin/stats",
         {
           withCredentials: true,
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

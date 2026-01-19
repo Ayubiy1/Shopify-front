@@ -16,7 +16,7 @@ const ProfileP = () => {
     queryKey: ["user-profile-data"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/me",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/me",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ const ProfileP = () => {
     mutationKey: ["user-profile-update"],
     mutationFn: async (updatedData) =>
       await axios.put(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/${updatedData.id}`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${updatedData.id}`,
         updatedData,
         {
           headers: {

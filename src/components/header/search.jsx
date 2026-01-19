@@ -11,7 +11,7 @@ const SearchComp = () => {
     queryKey: ["search", searchValue],
     queryFn: () => async (query) => {
       const res = await axios.get(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/search?q=${query}`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/search?q=${query}`,
         { withCredentials: true }
       );
 

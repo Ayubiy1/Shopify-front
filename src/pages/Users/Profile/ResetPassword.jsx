@@ -7,7 +7,7 @@ const ResetPassword = () => {
   const [step, setStep] = useState(1);
 
   const sendOtp = async () => {
-    await axios.post("http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/reset-password/send-otp", {
+    await axios.post("http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/reset-password/send-otp", {
       email,
     });
     setStep(2);
@@ -15,7 +15,7 @@ const ResetPassword = () => {
 
   const verifyOtp = async () => {
     const res = await axios.post(
-      "http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/reset-password/verify-otp",
+      "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/reset-password/verify-otp",
       {
         email,
         otp,

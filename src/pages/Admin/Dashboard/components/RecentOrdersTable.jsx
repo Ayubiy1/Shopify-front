@@ -6,7 +6,7 @@ const RecentOrdersTable = () => {
   const { data } = useQuery({
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
-      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/stock-history", {
+      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/stock-history", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

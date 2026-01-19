@@ -25,7 +25,7 @@ const AdminUsers = () => {
     queryKey: ["Admin-users-query"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users"
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users"
       );
       return res.data;
     },
@@ -34,7 +34,7 @@ const AdminUsers = () => {
     queryKey: ["Admin-user-query"],
     queryFn: async () => {
       const res = await axios.get(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/${choosedUser}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${choosedUser}`
       );
       return res.data;
     },
@@ -43,7 +43,7 @@ const AdminUsers = () => {
     mutationKey: ["Admin-user-update"],
     mutationFn: async (upData) =>
       await axios.put(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/${choosedUser}`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${choosedUser}`,
         upData
       ),
     onSuccess: () => {

@@ -17,7 +17,7 @@ const Corusel = () => {
   const { data } = useQuery({
     queryKey: ["corusel-user"],
     queryFn: async () => {
-      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/", {
+      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/", {
         withCredentials: true,
       });
 
@@ -27,12 +27,12 @@ const Corusel = () => {
 
   useEffect(() => {
     data?.forEach((item) => {
-      axios.patch(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${item._id}/view`);
+      axios.patch(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${item._id}/view`);
     });
   }, []);
 
   const handleClick = (id) => {
-    axios.patch(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${id}/click`);
+    axios.patch(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${id}/click`);
   };
 
   const onChange = (currentSlide) => {};

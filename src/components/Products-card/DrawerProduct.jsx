@@ -20,7 +20,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   //   queryKey: ["product-name-id-drawer", choosedProduct],
   //   queryFn: async () => {
   //     const res = await axios.get(
-  //       `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/${choosedProduct}`
+  //       `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${choosedProduct}`
   //     );
   //     return res?.productOne;
   //   },
@@ -30,7 +30,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   const { mutate } = useMutation({
     mutationFn: async (product) =>
       axios.post(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/cart/add",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/add",
         product,
         {
           headers: {

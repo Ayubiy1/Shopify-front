@@ -30,7 +30,7 @@ const SellerProducts = () => {
   const checkUser = async () => {
     try {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/me",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/me",
         {
           withCredentials: true, // cookie yuboriladi
           headers: {
@@ -50,7 +50,7 @@ const SellerProducts = () => {
     queryKey: ["seller-products", user, loading],
     queryFn: async () => {
       checkUser();
-      const res = await axios.get(`http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/seller`, {
+      const res = await axios.get(`http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/seller`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -67,7 +67,7 @@ const SellerProducts = () => {
   const { mutate: addProduct, isLoading: addPrdctIsLoading } = useMutation({
     mutationFn: async (newProduct) =>
       axios.post(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
         newProduct
       ),
 
@@ -82,7 +82,7 @@ const SellerProducts = () => {
   const { mutate: editProduct, isLoading: editPrdctIsLoading } = useMutation({
     mutationFn: async (newProduct) =>
       axios.put(
-        `http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/${newProduct?._id}`,
+        `http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${newProduct?._id}`,
         newProduct,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -100,7 +100,7 @@ const SellerProducts = () => {
   const { mutate: editProducta } = useMutation({
     mutationFn: async (newProduct) =>
       axios.post(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/`,
         newProduct
       ),
 

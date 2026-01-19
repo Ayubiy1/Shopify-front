@@ -6,7 +6,7 @@ const Home = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/users/",
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/",
         { withCredentials: true }
       );
       return res.data;

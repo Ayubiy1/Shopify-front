@@ -13,7 +13,7 @@ const RegisterSeller = () => {
   const { mutate: mutateRegister } = useMutation({
     mutationFn: async (newUser) => {
       const res = await axios.post(
-        "http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/register",
+        "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/register",
         newUser,
         { withCredentials: true }
       );
@@ -30,7 +30,7 @@ const RegisterSeller = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: async (newSeller) => {
       const res = await axios.post(
-        "http://https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/sellers/add",
+        "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/sellers/add",
         newSeller,
         { withCredentials: true }
       );

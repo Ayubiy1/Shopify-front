@@ -17,7 +17,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     queryKey: "products-card",
     queryFn: async () => {
       const res = await axios.get(
-        "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/"
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/"
       );
 
       return res.data;
@@ -29,7 +29,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     queryKey: ["product-name-id-drawer", choosedProduct, setChoosedProduct],
     queryFn: async (id) => {
       const res = await axios.get(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/products/${id}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${id}`
       );
       return res?.data;
     },

@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/me", {
+        const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/me", {
           withCredentials: true, // cookie yuboriladi
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -9,7 +9,7 @@ import api from "../auth";
 const Login = () => {
   const navigate = useNavigate();
 
-  // "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/login",
+  // "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/login",
 
   const { mutate } = useMutation({
     mutationFn: async (user) => {
@@ -45,7 +45,7 @@ const Login = () => {
 
     // Backendga yuborish
     const res = await fetch(
-      "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/auth/google",
+      "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/google",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -28,7 +28,7 @@ import SellerProducts from "./pages/Saler/Products.jsx";
 import StatisticProducts from "./pages/Saler/StatisticSeller.jsx.jsx";
 
 axios.defaults.baseURL =
-  "https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/";
+  "https://angry-korie-developerayubiy-4da36956.koyeb.app/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config) => {

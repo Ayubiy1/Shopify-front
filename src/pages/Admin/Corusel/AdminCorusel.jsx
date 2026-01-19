@@ -27,7 +27,7 @@ const AdminCorusel = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-corusels"],
     queryFn: async () => {
-      const res = await axios.get("https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel");
+      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel");
       return res.data;
     },
   });
@@ -37,7 +37,7 @@ const AdminCorusel = () => {
     enabled: !!choosedCorsel,
     queryFn: async () => {
       const res = await axios.get(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${choosedCorsel}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${choosedCorsel}`
       );
       return res.data;
     },
@@ -48,7 +48,7 @@ const AdminCorusel = () => {
     mutationKey: "update-corusel",
     mutationFn: async (upProduct) =>
       axios.put(
-        `https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${choosedCorsel}`,
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${choosedCorsel}`,
         upProduct
       ),
     onSuccess: () => {
@@ -62,7 +62,7 @@ const AdminCorusel = () => {
   const { mutate: addMuatate } = useMutation({
     mutationKey: "add-corusel-admin",
     mutationFn: async (data) =>
-      axios.post(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/`, data),
+      axios.post(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/`, data),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -74,7 +74,7 @@ const AdminCorusel = () => {
   const { mutate: deleteMuatate } = useMutation({
     mutationKey: "delete-corusel-admin",
     mutationFn: async (id) =>
-      axios.delete(`https://vital-blaire-developerayubiy-9da1c9ac.koyeb.app/api/corusel/${id}`),
+      axios.delete(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${id}`),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
