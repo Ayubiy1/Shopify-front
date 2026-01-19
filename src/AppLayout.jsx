@@ -17,7 +17,7 @@ const AppLayout = () => {
         "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/categories",
         {
           withCredentials: true,
-        }
+        },
       ),
   });
 
@@ -28,9 +28,11 @@ const AppLayout = () => {
       <CategoriesPage />
 
       <div className="mt-[20px]">
-        {data?.data.map((citem) => {
+        {data?.data.map((citem, indx) => {
           return (
             <ProductsCard
+              key={indx}
+              indx={indx}
               categry_path={citem?.slug}
               categry_name={citem?.name}
             />

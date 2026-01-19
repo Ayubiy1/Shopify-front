@@ -18,8 +18,10 @@ const Login = () => {
       return res.data;
     },
     onSuccess: (res) => {
-      localStorage.setItem("token", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
+      console.log(res);
+
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("refreshToken", res.token);
 
       if (res.user.role === "buyer") {
         navigate("/users");
@@ -50,7 +52,7 @@ const Login = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: credentialResponse.credential }),
-      }
+      },
     );
 
     const data = await res.json();
@@ -112,7 +114,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input className="w-[444px]" />
+            <Input className="w-[333px]" />
           </Form.Item>
 
           <Form.Item
@@ -122,7 +124,7 @@ const Login = () => {
               { required: true, message: "Iltimos Passwordingizni kiriting!" },
             ]}
           >
-            <Input.Password className="w-[444px]" />
+            <Input.Password className="w-[333px]" />
           </Form.Item>
 
           <Button type="primary" htmlType="submit" className="mb-[15px]">

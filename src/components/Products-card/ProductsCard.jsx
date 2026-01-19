@@ -17,7 +17,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     queryKey: "products-card",
     queryFn: async () => {
       const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/"
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/",
       );
 
       return res.data;
@@ -25,14 +25,17 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     },
   });
 
-  const { data: productOne } = useQuery({
-    queryKey: ["product-name-id-drawer", choosedProduct, setChoosedProduct],
-    queryFn: async (id) => {
+  const { data: productOneData } = useQuery({
+    queryKey: ["product-name-id-drawer", choosedProduct],
+    queryFn: async () => {
+      if (!choosedProduct) return null;
+
       const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${id}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${choosedProduct}`,
       );
       return res?.data;
     },
+    enabled: !!choosedProduct, // ⭐ muhim
   });
 
   const showDrawer = () => {
@@ -50,7 +53,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
 
       <Row className="flex items-center mt-[-5px]">
         {data
-          ?.filter((p) => p.category == categry_path)
+          ?.filter((p) => p?.category == categry_path)
           ?.map((prduct, indx) => {
             return (
               <>
@@ -76,10 +79,8 @@ const ProductsCard = ({ categry_name, categry_path }) => {
                       className="w-[100%] h-[260px] object-cover"
                       alt={prduct.name}
                       onClick={() => {
-                        console.log(prduct?._id);
-                        productOne(prduct?._id);
                         setChoosedProduct(prduct?._id);
-                        // navigate(`/users/${prduct?.name}/${prduct?._id}`);
+                        navigate(`/users/${prduct?.name}/${prduct?._id}`);
                       }}
                     />
                     <div
@@ -119,7 +120,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
                   setOpen={setOpen}
                   id={prduct?._id}
                   imageIndex={0}
-                  productOne={productOne}
+                  productOne={productOneData}
                 />
               </>
             );
