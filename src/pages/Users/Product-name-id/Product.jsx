@@ -26,7 +26,7 @@ const ProductNameId = () => {
         "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
         {
           withCredentials: true,
-        }
+        },
       );
 
       return res.data.find((p) => p._id === id);
@@ -36,7 +36,7 @@ const ProductNameId = () => {
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
       return axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products${1}`
+        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products${1}`,
       );
     },
   });
@@ -51,7 +51,7 @@ const ProductNameId = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
           },
-        }
+        },
       ),
     onSuccess: (res) => {
       console.log(res);
@@ -78,7 +78,7 @@ const ProductNameId = () => {
     setSelectedOptions(d);
 
     const v = data.variants.find((v) =>
-      Object.entries(d).every(([key, val]) => v.combination[key] === val)
+      Object.entries(d).every(([key, val]) => v.combination[key] === val),
     );
 
     setSelectedVariant(v ?? null);
@@ -91,7 +91,7 @@ const ProductNameId = () => {
   // VARIANTNI TOPISH
   const findVariant = (opts) => {
     return data.variants.find((v) =>
-      Object.entries(opts).every(([key, val]) => v.combination[key] === val)
+      Object.entries(opts).every(([key, val]) => v.combination[key] === val),
     );
   };
 
@@ -147,7 +147,7 @@ const ProductNameId = () => {
     const test = { ...selectedOptions, [name]: value };
 
     return data?.variants?.some((v) =>
-      Object.entries(test)?.every(([k, val]) => v?.combination[k] === val)
+      Object.entries(test)?.every(([k, val]) => v?.combination[k] === val),
     );
   };
 
@@ -159,7 +159,7 @@ const ProductNameId = () => {
         acc[color] = variant;
       }
       return acc;
-    }, {})
+    }, {}),
   );
 
   // KO‘RSATILADIGAN RASMLAR
@@ -225,7 +225,7 @@ const ProductNameId = () => {
           <h3>{data?.description}</h3>
         </div>
         {/* RIGHT — DETAILS */}
-        <div className="lg:w-[500px] flex flex-col gap-5">
+        <div className="lg:w-[500px] flex flex-col gap-5 mb-[20px]">
           <p className="text-xl text-green-600 font-bold">
             ${selectedVariant?.price || data.price}
           </p>
@@ -324,7 +324,7 @@ const ProductNameId = () => {
               <Button
                 onClick={() => {
                   setCountProduct((prev) =>
-                    selectedVariant.stock > prev ? prev + 1 : prev
+                    selectedVariant.stock > prev ? prev + 1 : prev,
                   );
                 }}
                 disabled={
