@@ -6,6 +6,7 @@ import { Button, Image, message } from "antd";
 
 import "./Product.css";
 import ProductsCard from "../../../components/Products-card/ProductsCard";
+import api from "../../../auth";
 
 const ProductNameId = () => {
   const { id } = useParams();
@@ -32,6 +33,21 @@ const ProductNameId = () => {
       return res.data.find((p) => p._id === id);
     },
   });
+
+  const { data: userData } = useQuery({
+    queryKey: ["user-data-for-id"],
+    queryFn: async () => {
+      const res = await api.get("/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      return res.data;
+    },
+  });
+
+  // console.log(userData?.id);
 
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
@@ -133,6 +149,7 @@ const ProductNameId = () => {
     mutate({
       count: countProduct,
       productId: id,
+      userId: userData?.id,
       variantId: selectedVariant?._id,
       title: data.name,
       combination: selectedVariant.combination,
