@@ -59,8 +59,10 @@ const ProductNameId = () => {
 
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
-    mutationFn: async (product) =>
-      axios.post(
+    mutationFn: async (product) => {
+      console.log(product);
+
+      return axios.post(
         "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/add",
         product,
         {
@@ -68,14 +70,18 @@ const ProductNameId = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
           },
         },
-      ),
-    onSuccess: (res) => {
-      console.log(res);
 
-      queryClient.invalidateQueries("product-name-id");
+        {
+          onSuccess: (res) => {
+            console.log(res);
 
-      setLoadingAddCart(false);
-      alert("Savatchaga qo‘shildi!");
+            queryClient.invalidateQueries("product-name-id");
+
+            setLoadingAddCart(false);
+            alert("Savatchaga qo‘shildi!");
+          },
+        },
+      );
     },
   });
 
