@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Button, Drawer, Image, message } from "antd";
 
 import "./DrawerProduct.css";
+import api from "../../auth";
 
 const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   const queryClient = useQueryClient();
@@ -15,29 +16,14 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [imageIndex, setImageIndex] = useState(0);
 
-  // PRODUCTNI OLIB KELISH
-  // const { productOne, isLoading } = useQuery({
-  //   queryKey: ["product-name-id-drawer", choosedProduct],
-  //   queryFn: async () => {
-  //     const res = await axios.get(
-  //       `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${choosedProduct}`
-  //     );
-  //     return res?.productOne;
-  //   },
-  // });
-
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) =>
-      axios.post(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/add",
-        product,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
-          },
-        }
-      ),
+      api.post("/api/cart/add", product, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
+        },
+      }),
     onSuccess: (res) => {
       console.log(res);
       queryClient.invalidateQueries("product-name-id");
@@ -57,7 +43,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
     }
     setSelectedOptions(d);
     const v = productOne?.variants.find((v) =>
-      Object.entries(d).every(([key, val]) => v.combination[key] === val)
+      Object.entries(d).every(([key, val]) => v.combination[key] === val),
     );
     setSelectedVariant(v ?? null);
   }, [productOne]);
@@ -65,7 +51,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   // VARIANTNI TOPISH
   const findVariant = (opts) => {
     return productOne.variants.find((v) =>
-      Object.entries(opts).every(([key, val]) => v.combination[key] === val)
+      Object.entries(opts).every(([key, val]) => v.combination[key] === val),
     );
   };
 
@@ -113,7 +99,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
   const isOptionAvailable = (name, value) => {
     const test = { ...selectedOptions, [name]: value };
     return productOne?.variants?.some((v) =>
-      Object.entries(test)?.every(([k, val]) => v?.combination[k] === val)
+      Object.entries(test)?.every(([k, val]) => v?.combination[k] === val),
     );
   };
 
@@ -125,7 +111,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
         acc[color] = variant;
       }
       return acc;
-    }, {})
+    }, {}),
   );
 
   // KO‘RSATILADIGAN RASMLAR
@@ -150,7 +136,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
                 preview={{
                   onChange: (current, prev) =>
                     console.log(
-                      `current index: ${current}, prev index: ${prev}`
+                      `current index: ${current}, prev index: ${prev}`,
                     ),
                 }}
               >
@@ -180,7 +166,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
                 preview={{
                   onChange: (current, prev) =>
                     console.log(
-                      `current index: ${current}, prev index: ${prev}`
+                      `current index: ${current}, prev index: ${prev}`,
                     ),
                 }}
               >
@@ -294,7 +280,7 @@ const DrawerProduct = ({ open, onClose, id, productOne, setOpen }) => {
                 <Button
                   onClick={() => {
                     setCountProduct((prev) =>
-                      selectedVariant.stock > prev ? prev + 1 : prev
+                      selectedVariant.stock > prev ? prev + 1 : prev,
                     );
                   }}
                   disabled={

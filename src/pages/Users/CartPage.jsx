@@ -13,6 +13,7 @@ import {
 import { DeleteOutlined } from "@ant-design/icons";
 
 import "./style.css";
+import api from "../../auth";
 
 const CartPage = () => {
   const [open, setOpen] = useState(false);
@@ -30,32 +31,26 @@ const CartPage = () => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["korzinka"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/me",
-        { withCredentials: true },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
-          },
-        }
-      );
+      const res = await api.get("/api/cart/me", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
+        },
+      });
       return res.data;
     },
   });
+
+  console.log(data);
 
   // Korzinkadagi 1ta productni olish
   const { data: productData, isLoading: productIsloading } = useQuery({
     queryKey: ["product-data-by-id", open, productId],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/${productId}`,
-        { withCredentials: true },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
-          },
-        }
-      );
+      const res = await api.get(`/api/cart/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // token yuboriladi
+        },
+      });
 
       return res.data;
     },
@@ -66,7 +61,7 @@ const CartPage = () => {
     mutationFn: async (data) => {
       console.log(data);
 
-      return axios.post(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/buy`, data);
+      return api.post(`/api/cart/buy`, data);
     },
     onSuccess: () => {
       deleteMutation(productId);
@@ -78,8 +73,7 @@ const CartPage = () => {
 
   // 🗑 CART ITEMni O‘CHIRISH
   const { mutate: deleteMutation, isLoading: deleteisLoading } = useMutation({
-    mutationFn: async (id) =>
-      axios.delete(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/remove/${id}`),
+    mutationFn: async (id) => api.delete(`/api/cart/remove/${id}`),
     onSuccess: () => {
       message.success("O‘chirildi!");
       refetch(); // table yangilansin

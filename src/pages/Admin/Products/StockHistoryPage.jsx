@@ -2,12 +2,13 @@ import React from "react";
 import { Table, Tag } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import api from "../../../auth";
 
 const StockHistoryPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["stock-history"],
     queryFn: async () => {
-      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/stock-history");
+      const res = await api.get("/api/stock-history");
       return res.data;
     },
   });

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button, Col, Row } from "antd";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "../../../auth";
 
 const CategoriesPage = () => {
   const { id } = useParams();
@@ -10,13 +10,11 @@ const CategoriesPage = () => {
   const { data: products } = useQuery({
     queryKey: ["product-by-categoryId", id],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products`,
-        { withCredentials: true }
-      );
+      const res = await api.get(`/api/products`, {});
       return res.data.filter((i) => i.categoryId == id);
     },
   });
+  console.log(products);
 
   return (
     <>

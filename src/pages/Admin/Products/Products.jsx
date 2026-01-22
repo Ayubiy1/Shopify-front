@@ -13,8 +13,8 @@ import {
   Collapse,
 } from "antd";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import api from "../../../auth";
 
 const AdminProducts = () => {
   const navigate = useNavigate();
@@ -30,10 +30,7 @@ const AdminProducts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
-        { withCredentials: true }
-      );
+      const res = await api.get("/api/products", { withCredentials: true });
       return res.data;
     },
   });
@@ -43,10 +40,9 @@ const AdminProducts = () => {
     queryKey: ["admin-product-edit", productId],
     queryFn: async () => {
       if (!productId) return null;
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${productId}`,
-        { withCredentials: true }
-      );
+      const res = await api.get(`/api/products/${productId}`, {
+        withCredentials: true,
+      });
       return res.data;
     },
     enabled: !!productId,
@@ -55,11 +51,7 @@ const AdminProducts = () => {
   // ADD PRODUCT
   const { mutate: addProduct, isLoading: addPrdctIsLoading } = useMutation({
     mutationFn: async (newProduct) =>
-      axios.post(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
-        newProduct,
-        { withCredentials: true }
-      ),
+      api.post("/api/products", newProduct, { withCredentials: true }),
 
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
@@ -71,11 +63,7 @@ const AdminProducts = () => {
   // EDIT PRODUCT
   const { mutate: editProduct } = useMutation({
     mutationFn: async (updated) =>
-      axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${productId}`,
-        updated,
-        { withCredentials: true }
-      ),
+      api.put(`/api/products/${productId}`, updated, { withCredentials: true }),
 
     onSuccess: () => {
       message.success("Mahsulot yangilandi!");
@@ -87,10 +75,7 @@ const AdminProducts = () => {
   // DELETE PRODUCT
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${id}`,
-        { withCredentials: true }
-      );
+      await api.delete(`/api/products/${id}`, { withCredentials: true });
       message.success("Mahsulot o‘chirildi!");
       queryClient.invalidateQueries(["admin-products"]);
     } catch (error) {
@@ -222,9 +207,9 @@ const AdminProducts = () => {
                 (prdct) =>
                   prdct.category && prdct.category.trim() !== ""
                     ? prdct.category
-                    : "No category" // ✔ bo‘shlarni ham qo‘shadi
-              )
-            )
+                    : "No category", // ✔ bo‘shlarni ham qo‘shadi
+              ),
+            ),
           ).map((name) => ({
             text: name,
             value: name,

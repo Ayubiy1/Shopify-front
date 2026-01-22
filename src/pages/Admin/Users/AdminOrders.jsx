@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Table } from "antd";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../../../auth";
 
 const AdminOrders = () => {
   const [filteredInfo, setFilteredInfo] = useState({});
 
   const { data } = useQuery({
     queryKey: ["admin-orders"],
-    queryFn: async () =>
-      await axios.get(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart`),
+    queryFn: async () => await api.get(`/api/cart`),
   });
 
   const columns = [

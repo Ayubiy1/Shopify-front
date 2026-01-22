@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import api from "../../../auth";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -7,20 +8,17 @@ const ResetPassword = () => {
   const [step, setStep] = useState(1);
 
   const sendOtp = async () => {
-    await axios.post("http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/reset-password/send-otp", {
+    await api.post("/api/reset-password/send-otp", {
       email,
     });
     setStep(2);
   };
 
   const verifyOtp = async () => {
-    const res = await axios.post(
-      "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/reset-password/verify-otp",
-      {
-        email,
-        otp,
-      }
-    );
+    const res = await api.post("/api/reset-password/verify-otp", {
+      email,
+      otp,
+    });
 
     if (res.data.verified) alert("Tasdiqlandi ✅");
   };

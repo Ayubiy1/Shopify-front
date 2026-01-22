@@ -10,8 +10,8 @@ import {
   Form,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import api from "../../../auth";
 
 const AdminUsers = () => {
   const [form] = useForm();
@@ -24,28 +24,21 @@ const AdminUsers = () => {
   const { data: usersData, isLoading } = useQuery({
     queryKey: ["Admin-users-query"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users"
-      );
+      const res = await api.get("/api/users");
       return res.data;
     },
   });
   const { data: userData, isLoading: userLoading } = useQuery({
     queryKey: ["Admin-user-query"],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${choosedUser}`
-      );
+      const res = await api.get(`/api/users/${choosedUser}`);
       return res.data;
     },
   });
   const { mutate, isLoading: userUpadateLoading } = useMutation({
     mutationKey: ["Admin-user-update"],
     mutationFn: async (upData) =>
-      await axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${choosedUser}`,
-        upData
-      ),
+      await api.put(`/api/users/${choosedUser}`, upData),
     onSuccess: () => {
       onClose();
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -88,7 +81,7 @@ const AdminUsers = () => {
             (name) => ({
               text: name,
               value: name,
-            })
+            }),
           )
         : [],
       filteredValue: filteredInfo.fullName || null,

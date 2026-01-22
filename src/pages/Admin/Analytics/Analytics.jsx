@@ -1,20 +1,13 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { Card } from "antd";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import api from "../../../auth";
 
 const Analytics = () => {
   const { data = [], isLoading } = useQuery({
     queryKey: ["corusel-analytics-admin"],
     queryFn: async () => {
-      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel");
+      const res = await api.get("/api/corusel");
       return res.data;
     },
   });
@@ -37,7 +30,7 @@ const Analytics = () => {
       acc[item.category].Clicks += item.clicks || 0;
 
       return acc;
-    }, {})
+    }, {}),
   );
 
   console.log(chartData);

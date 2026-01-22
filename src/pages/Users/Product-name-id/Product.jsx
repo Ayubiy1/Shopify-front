@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image, message } from "antd";
@@ -17,20 +16,27 @@ const ProductNameId = () => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [countProduct, setCountProduct] = useState(1);
   const [loadingAddCart, setLoadingAddCart] = useState();
-  const [categorysName, setCategorysName] = useState(null);
 
   // PRODUCTNI OLIB KELISH
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product-name-id", id],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
-        {
-          withCredentials: true,
-        },
-      );
+      const res = await api.get("/api/products", {
+        withCredentials: true,
+      });
 
       return res.data.find((p) => p._id === id);
+    },
+  });
+
+  const { data: categorysData } = useQuery({
+    queryKey: ["categorys-data-name-id"],
+    queryFn: async () => {
+      const res = await api.get("/api/categories", {
+        withCredentials: true,
+      });
+
+      return res.data;
     },
   });
 
@@ -47,23 +53,17 @@ const ProductNameId = () => {
     },
   });
 
-  // console.log(userData?.id);
-
   const { mutate: productMuate } = useMutation({
     mutationFn: async () => {
-      return axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products${1}`,
-      );
+      return api.put(`/api/products${1}`);
     },
   });
 
   // CART GA QO‘SHISH
   const { mutate } = useMutation({
     mutationFn: async (product) => {
-      console.log(product);
-
-      return axios.post(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/cart/add",
+      return api.post(
+        "/api/cart/add",
         product,
         {
           headers: {
@@ -73,8 +73,6 @@ const ProductNameId = () => {
 
         {
           onSuccess: (res) => {
-            console.log(res);
-
             queryClient.invalidateQueries("product-name-id");
 
             setLoadingAddCart(false);
@@ -195,7 +193,7 @@ const ProductNameId = () => {
       <div className="md:flex justify-around gap-6 mt-5">
         {/* LEFT — IMAGES */}
         <div className="">
-          <div className="flex gap-2 w-1/4 md:w-1/1 overflow-y-scroll hidden-scrollbar my-[10px]">
+          <div className="flex gap-2 w-1/1 md:w-1/2 overflow-y-scroll hidden-scrollbar my-[10px]">
             <Image.PreviewGroup
               preview={{
                 onChange: (current, prev) =>
@@ -222,6 +220,7 @@ const ProductNameId = () => {
               ))}
             </Image.PreviewGroup>
           </div>
+
           <div className="flex gap-3 items-center">
             <Image.PreviewGroup
               preview={{
@@ -231,24 +230,41 @@ const ProductNameId = () => {
             >
               <Image
                 src={imagesToShow?.[0]}
-                width={383}
                 height={444}
-                className="rounded-lg object-cover"
+                className="
+        rounded-lg
+        object-cover
+        w-[180px] h-[220px]
+        sm:w-[220px] sm:h-[260px]
+        md:w-[280px] md:h-[320px]
+        lg:w-[320px] lg:h-[380px]
+        xl:w-[383px] xl:h-[444px]
+      "
               />
+
               {imagesToShow?.[1] && (
                 <Image
                   src={imagesToShow?.[1]}
-                  width={383}
                   height={444}
-                  className="rounded-lg object-cover"
+                  className="
+          rounded-lg
+          object-cover
+          w-[180px] h-[220px]
+          sm:w-[220px] sm:h-[260px]
+          md:w-[280px] md:h-[320px]
+          lg:w-[320px] lg:h-[380px]
+          xl:w-[383px] xl:h-[444px]
+        "
                 />
               )}
             </Image.PreviewGroup>
           </div>
+
           <h3>{data?.description}</h3>
         </div>
+
         {/* RIGHT — DETAILS */}
-        <div className="lg:w-[500px] flex flex-col gap-5 mb-[20px]">
+        <div className="md:w-[500px] flex flex-col gap-5 mb-[20px]">
           <p className="text-xl text-green-600 font-bold">
             ${selectedVariant?.price || data.price}
           </p>
@@ -268,7 +284,7 @@ const ProductNameId = () => {
                     <div key={i} className="relative">
                       <img
                         src={v?.images?.[0] || "/no-image.png"}
-                        className={`w-[99px] h-[99px] rounded-lg cursor-pointer 
+                        className={`w-[100px] h-[100px] rounded-lg object-cover cursor-pointer 
                         ${isActive ? "colorOrsize" : "colorOrsize_no"}`}
                         onClick={() => handleColorSelect(v)}
                       />
@@ -370,7 +386,7 @@ const ProductNameId = () => {
         </div>
       </div>
 
-      {categorysName?.map((c) => {
+      {categorysData?.map((c) => {
         return (
           <div className="mt-[30px] w-full">
             <ProductsCard categry_name={c.name} categry_path={c.slug} />
@@ -382,3 +398,31 @@ const ProductNameId = () => {
 };
 
 export default ProductNameId;
+
+{
+  /* <div className="flex gap-3 items-center bg-gray-500">
+            <Image.PreviewGroup
+              preview={{
+                onChange: (current, prev) =>
+                  console.log(`current index: ${current}, prev index: ${prev}`),
+              }}
+            >
+              <Image
+                src={imagesToShow?.[0]}
+                // width={383}
+                height={444}
+                // className="rounded-lg object-cover w-[222px]"
+                className="rounded-lg object-cover h=[4444] w-[11px] sm:w-[220px] md:w-[280px] lg:w-[320px] xl:w-[383px]"
+              />
+              {imagesToShow?.[1] && (
+                <Image
+                  src={imagesToShow?.[1]}
+                  // width={383}
+                  height={444}
+                  // className="rounded-lg object-cover w-[222px]"
+                  className="rounded-lg object-cover w-[11px] sm:w-[220px] md:w-[280px] lg:w-[320px] xl:w-[383px]"
+                />
+              )}
+            </Image.PreviewGroup>
+          </div> */
+}

@@ -3,6 +3,7 @@ import { Button, Form, Input } from "antd";
 
 import "./search.css";
 import { useQuery } from "@tanstack/react-query";
+import api from "../../auth";
 
 const SearchComp = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -10,8 +11,7 @@ const SearchComp = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["search", searchValue],
     queryFn: () => async (query) => {
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/search?q=${query}`,
+      const res = await api.get(`/api/products/search?q=${query}`,
         { withCredentials: true }
       );
 

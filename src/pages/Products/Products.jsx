@@ -5,8 +5,7 @@ const ProductsPage = () => {
   const { data } = useQuery({
     queryKey: ["products-user"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/",
+      const res = await api.get("/api/products/",
         { withCredentials: true }
       );
       return res.data;

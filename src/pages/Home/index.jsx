@@ -5,8 +5,7 @@ const Home = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/",
+      const res = await api.get("/api/users/",
         { withCredentials: true }
       );
       return res.data;

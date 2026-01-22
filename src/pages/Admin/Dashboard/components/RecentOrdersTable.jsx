@@ -1,12 +1,13 @@
 import { Table } from "antd";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import api from "../../../../auth";
 
 const RecentOrdersTable = () => {
   const { data } = useQuery({
     queryKey: ["recent-recent-orders-table"],
     queryFn: async () => {
-      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/stock-history", {
+      const res = await api.get("/api/stock-history", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

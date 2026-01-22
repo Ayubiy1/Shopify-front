@@ -4,42 +4,45 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Resend } from "resend";
+import api from "../../../auth";
 
 const resend = new Resend("re_fSLgK9hM_CP52dMrd7M4Hbq812zKM3Lrb");
 const ProfileP = () => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const warning = () => {
+    messageApi.open({
+      type: "warning",
+      content: "This is a warning message",
+    });
+  };
 
   // 1️⃣ Foydalanuvchi ma’lumotlarini olish
   const { data, isLoading: queryLoading } = useQuery({
     queryKey: ["user-profile-data"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await api.get("/api/users/me", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       return res.data;
     },
   });
+  console.log(data);
 
   // 2️⃣ Profilni yangilash
   const { mutate, isLoading: updateLoading } = useMutation({
-    mutationKey: ["user-profile-update"],
+    mutationKey: ["user-profile-update-data"],
     mutationFn: async (updatedData) =>
-      await axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/users/${updatedData.id}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      ),
+      await api.put(`/api/users/${updatedData.id}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }),
     onSuccess: () => {
       message.success("Profil yangilandi!");
       queryClient.invalidateQueries(["user-profile-data"]); // query ni yangilash
@@ -63,9 +66,13 @@ const ProfileP = () => {
   }, [data, form]);
 
   const onFinish = (values) => {
-    if (!data?._id) return; // ID bo‘lmasa mutate chaqirmaymiz
+    // console.log("ad");
+    console.log(values);
+    console.log(data);
 
-    const payload = { id: data._id, ...values };
+    if (!data?.id) warning(); // ID bo‘lmasa mutate chaqirmaymiz
+
+    const payload = { id: data.id, ...values };
 
     if (!values.password) delete payload.password; // password bo‘lsa jo‘natamiz
 
@@ -85,27 +92,90 @@ const ProfileP = () => {
 
   return (
     <div className="flex justify-center mt-10">
+      {contextHolder}
+
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        style={{ width: "555px" }}
-        className="h-[80vh] w-full flex flex-col items-center justify-center"
+        className="h-[80vh] sm:w-[333px] md:w-[555px] flex flex-col items-center justify-center"
+      >
+        <Form.Item label="To'liq ism" name="fullName" className="w-full">
+          <Input className="w-full" />
+        </Form.Item>
+
+        <Form.Item label="Email" name="email" className="w-full">
+          <Input className="w-full" />
+        </Form.Item>
+
+        <Form.Item
+          label="Ro'yhatdan o'tilgan kun"
+          name="createdAt"
+          className="w-full"
+        >
+          <Input disabled className="w-full" />
+        </Form.Item>
+
+        <Form.Item label="New Password" name="password" className="w-full">
+          <Input.Password className="w-full" />
+        </Form.Item>
+
+        <div className="w-full flex gap-2 mt-4">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={updateLoading || queryLoading}
+            className="w-2/3"
+            // onClick={() => {
+            //   console.log("a");
+            //   onFinish();
+            // }}
+          >
+            Saqlash
+          </Button>
+
+          <Button
+            className="w-1/3"
+            onClick={() => {
+              navigate("/login");
+              localStorage.clear();
+            }}
+          >
+            Log Out
+          </Button>
+        </div>
+      </Form>
+      <div className="flex justify-center items-center mt-10"></div>
+    </div>
+  );
+};
+
+export default ProfileP;
+
+{
+  /* <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        className="h-[80vh] w-[555px] flex flex-col items-center justify-center"
       >
         <Form.Item label="To'liq ism" name="fullName">
-          <Input style={{ width: "555px" }} />
+          <Input className="w-[333px] md:w-[555px]" />
         </Form.Item>
 
         <Form.Item label="Email" name="email">
-          <Input style={{ width: "555px" }} />
+          <Input className="w-[333px] md:w-[555px]" />
         </Form.Item>
 
         <Form.Item label="Ro'yhatdan o'tilgan kun" name="createdAt">
-          <Input style={{ width: "555px" }} disabled />
+          <Input className="w-[333px] md:w-[555px]" disabled />
         </Form.Item>
 
         <Form.Item label="New Password" name="password">
-          <Input.Password placeholder="Ixtiyoriy" style={{ width: "555px" }} />
+          <Input.Password
+            placeholder="Ixtiyoriy"
+            className="w-[333px] md:w-[555px]"
+          />
         </Form.Item>
 
         <div className="w-[100%] flex gap-2 items-center justify-center">
@@ -128,9 +198,5 @@ const ProfileP = () => {
             Log Out
           </Button>
         </div>
-      </Form>
-    </div>
-  );
-};
-
-export default ProfileP;
+      </Form> */
+}

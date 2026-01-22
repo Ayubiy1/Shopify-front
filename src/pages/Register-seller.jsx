@@ -3,6 +3,7 @@ import { Button, Form, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../auth";
 
 const RegisterSeller = () => {
   const [form] = Form.useForm();
@@ -12,11 +13,9 @@ const RegisterSeller = () => {
 
   const { mutate: mutateRegister } = useMutation({
     mutationFn: async (newUser) => {
-      const res = await axios.post(
-        "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/register",
-        newUser,
-        { withCredentials: true }
-      );
+      const res = await api.post("/api/auth/register", newUser, {
+        withCredentials: true,
+      });
       return res.data;
     },
     onSuccess: (res) => {
@@ -29,11 +28,9 @@ const RegisterSeller = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (newSeller) => {
-      const res = await axios.post(
-        "http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/sellers/add",
-        newSeller,
-        { withCredentials: true }
-      );
+      const res = await api.post("/api/sellers/add", newSeller, {
+        withCredentials: true,
+      });
       return res.data;
     },
     onSuccess: (res) => {
@@ -54,7 +51,7 @@ const RegisterSeller = () => {
           Object.entries(errors).map(([field, message]) => ({
             name: field,
             errors: [message],
-          }))
+          })),
         );
       }
     },

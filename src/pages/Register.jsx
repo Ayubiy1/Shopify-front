@@ -9,8 +9,7 @@ const Register = () => {
 
   const { mutate } = useMutation({
     mutationFn: async (newUser) => {
-      const res = await axios.post(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/register",
+      const res = await api.post("/api/auth/register",
         newUser,
         { withCredentials: true }
       );

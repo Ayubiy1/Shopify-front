@@ -4,8 +4,8 @@ import Corusel from "./components/corusel";
 import "./App.css";
 import ProductsCard from "./components/Products-card/ProductsCard";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
+import api from "./auth";
 
 const AppLayout = () => {
   const [checkCategory, setCheckCategory] = useState();
@@ -13,12 +13,9 @@ const AppLayout = () => {
   const { data } = useQuery({
     queryKey: ["category-data-for-mini-card"],
     queryFn: async () =>
-      await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/categories",
-        {
-          withCredentials: true,
-        },
-      ),
+      await api.get("/api/categories", {
+        withCredentials: true,
+      }),
   });
 
   return (

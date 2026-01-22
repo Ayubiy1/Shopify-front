@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import api from "../../auth";
 
 export default function HeaderComp() {
   const navigate = useNavigate();
@@ -21,8 +22,7 @@ export default function HeaderComp() {
   const { data } = useQuery({
     queryKey: ["products-user"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/categories/",
+      const res = await api.get("/api/categories/",
         { withCredentials: true }
       );
       return res.data;

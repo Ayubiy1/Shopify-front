@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import api from "../auth";
+import { account } from "../context/appwrite";
+
+// import { account } from "../../src/context/appWrite";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  // "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/login",
 
   const { mutate } = useMutation({
     mutationFn: async (user) => {
@@ -38,6 +39,14 @@ const Login = () => {
       alert(error.response?.data?.message || error.message);
     },
   });
+
+  const loginWithGoogle = () => {
+    account.createOAuth2Session(
+      "google",
+      "https://shopify-steel-two.vercel.app", // success
+      "https://shopify-steel-two.vercel.app/login", // failure
+    );
+  };
 
   const handleLogin = async (credentialResponse) => {
     console.log("Token frontenddan:", credentialResponse.credential);
@@ -131,6 +140,8 @@ const Login = () => {
             Submit
           </Button>
         </Form>
+
+        <button onClick={loginWithGoogle}>Google bilan kirish</button>
 
         <GoogleLogin
           onSuccess={handleLogin}

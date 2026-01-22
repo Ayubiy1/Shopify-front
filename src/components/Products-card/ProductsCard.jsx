@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button, Col, Drawer, Row } from "antd";
-import axios from "axios";
 
 import "./ProductsCard.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DrawerProduct from "./DrawerProduct";
+import api from "../../auth";
 
 const ProductsCard = ({ categry_name, categry_path }) => {
   const navigate = useNavigate();
@@ -16,9 +16,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
   const { data, isLoading } = useQuery({
     queryKey: "products-card",
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/",
-      );
+      const res = await api.get("/api/products/");
 
       return res.data;
       // return res.data.find((p) => p.isActive === true);
@@ -30,9 +28,7 @@ const ProductsCard = ({ categry_name, categry_path }) => {
     queryFn: async () => {
       if (!choosedProduct) return null;
 
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${choosedProduct}`,
-      );
+      const res = await api.get(`/api/products/${choosedProduct}`);
       return res?.data;
     },
     enabled: !!choosedProduct, // ⭐ muhim

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../auth";
 
 const CategoriesMiniComp = () => {
   const navigate = useNavigate();
@@ -8,10 +9,7 @@ const CategoriesMiniComp = () => {
   const { data } = useQuery({
     queryKey: ["Categories-mini-cards2"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/categories/",
-        { withCredentials: true }
-      );
+      const res = await api.get("/api/categories/", { withCredentials: true });
       return res.data;
     },
   });
@@ -34,6 +32,8 @@ const CategoriesMiniComp = () => {
                 cursor: "pointer",
               }}
               onClick={() => {
+                console.log(item?._id);
+
                 navigate(`/users/${item?._id}`);
               }}
             >

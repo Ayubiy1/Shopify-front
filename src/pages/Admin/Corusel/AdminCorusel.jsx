@@ -11,8 +11,8 @@ import {
   message,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import api from "../../../auth";
 
 const AdminCorusel = () => {
   const [form] = useForm();
@@ -27,7 +27,7 @@ const AdminCorusel = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-corusels"],
     queryFn: async () => {
-      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel");
+      const res = await api.get("/api/corusel");
       return res.data;
     },
   });
@@ -36,9 +36,7 @@ const AdminCorusel = () => {
     queryKey: ["admin-corusel-data", choosedCorsel],
     enabled: !!choosedCorsel,
     queryFn: async () => {
-      const res = await axios.get(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${choosedCorsel}`
-      );
+      const res = await api.get(`/api/corusel/${choosedCorsel}`);
       return res.data;
     },
   });
@@ -47,10 +45,7 @@ const AdminCorusel = () => {
   const { mutate } = useMutation({
     mutationKey: "update-corusel",
     mutationFn: async (upProduct) =>
-      axios.put(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${choosedCorsel}`,
-        upProduct
-      ),
+      api.put(`/api/corusel/${choosedCorsel}`, upProduct),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -61,8 +56,7 @@ const AdminCorusel = () => {
   /* ===================== ADD ===================== */
   const { mutate: addMuatate } = useMutation({
     mutationKey: "add-corusel-admin",
-    mutationFn: async (data) =>
-      axios.post(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/`, data),
+    mutationFn: async (data) => api.post(`/api/corusel/`, data),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);
@@ -73,8 +67,7 @@ const AdminCorusel = () => {
   /* ===================== PUT ONE ===================== */
   const { mutate: deleteMuatate } = useMutation({
     mutationKey: "delete-corusel-admin",
-    mutationFn: async (id) =>
-      axios.delete(`https://angry-korie-developerayubiy-4da36956.koyeb.app/api/corusel/${id}`),
+    mutationFn: async (id) => api.delete(`/api/corusel/${id}`),
     onSuccess: () => {
       message.success("Mahsulot qo‘shildi!");
       queryClient.invalidateQueries(["admin-corusels"]);

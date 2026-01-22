@@ -15,6 +15,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../auth";
 
 const SellerProducts = () => {
   const navigate = useNavigate();
@@ -29,15 +30,12 @@ const SellerProducts = () => {
 
   const checkUser = async () => {
     try {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/me",
-        {
-          withCredentials: true, // cookie yuboriladi
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await api.get("/api/auth/me", {
+        withCredentials: true, // cookie yuboriladi
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setUser(res.data);
     } catch (err) {
       setUser(null);
@@ -50,7 +48,7 @@ const SellerProducts = () => {
     queryKey: ["seller-products", user, loading],
     queryFn: async () => {
       checkUser();
-      const res = await axios.get(`http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/seller`, {
+      const res = await api.get(`/api/products/seller`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -65,11 +63,7 @@ const SellerProducts = () => {
 
   // Add Product By Seller
   const { mutate: addProduct, isLoading: addPrdctIsLoading } = useMutation({
-    mutationFn: async (newProduct) =>
-      axios.post(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products",
-        newProduct
-      ),
+    mutationFn: async (newProduct) => api.post("/api/products", newProduct),
 
     onSuccess: () => {
       alert("Mahsulot qo‘shildi!");
@@ -81,13 +75,9 @@ const SellerProducts = () => {
 
   const { mutate: editProduct, isLoading: editPrdctIsLoading } = useMutation({
     mutationFn: async (newProduct) =>
-      axios.put(
-        `http://https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/${newProduct?._id}`,
-        newProduct,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      ),
+      api.put(`/api/products/${newProduct?._id}`, newProduct, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }),
 
     onSuccess: () => {
       alert("Mahsulot yangilandi!");
@@ -98,11 +88,7 @@ const SellerProducts = () => {
   });
 
   const { mutate: editProducta } = useMutation({
-    mutationFn: async (newProduct) =>
-      axios.post(
-        `https://angry-korie-developerayubiy-4da36956.koyeb.app/api/products/`,
-        newProduct
-      ),
+    mutationFn: async (newProduct) => api.post(`/api/products/`, newProduct),
 
     onSuccess: () => {
       alert("Mahsulot qo‘shildi!");
@@ -220,9 +206,9 @@ const SellerProducts = () => {
                 (prdct) =>
                   prdct.category && prdct.category.trim() !== ""
                     ? prdct.category
-                    : "No category" // ✔ bo‘shlarni ham qo‘shadi
-              )
-            )
+                    : "No category", // ✔ bo‘shlarni ham qo‘shadi
+              ),
+            ),
           )?.map((name) => ({
             text: name,
             value: name,

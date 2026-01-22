@@ -10,12 +10,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import "./stye.css";
+import api from "../../../../auth";
 
 const SalesChart = () => {
   const { data } = useQuery({
     queryKey: ["sales-chart"],
     queryFn: async () => {
-      const res = await axios.get("https://angry-korie-developerayubiy-4da36956.koyeb.app/api/admin/chart", {
+      const res = await api.get("/api/admin/chart", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

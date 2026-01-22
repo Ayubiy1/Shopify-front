@@ -6,8 +6,7 @@ const StatsCards = () => {
   const { data: stats } = useQuery({
     queryKey: ["admin-stats-carts"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/admin/stats",
+      const res = await api.get("/api/admin/stats",
         {
           withCredentials: true,
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
