@@ -272,13 +272,13 @@ const ProductNameId = () => {
           <p className="text-gray-600">{data.description}</p>
 
           {/* COLOR OPTIONS */}
-          {data.options?.some((o) => o.name === "color") && (
+          {data?.options?.some((o) => o.name === "color") && (
             <div className="w-full">
               <h3 className="font-semibold mb-2">Rang:</h3>
               <div className="flex gap-3 flex-wrap">
-                {uniqueColorVariants.map((v, i) => {
+                {uniqueColorVariants?.map((v, i) => {
                   const isActive =
-                    selectedOptions.color === v.combination.color;
+                    selectedOptions?.color === v?.combination?.color;
 
                   return (
                     <div key={i} className="relative">

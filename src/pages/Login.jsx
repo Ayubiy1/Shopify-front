@@ -6,6 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import api from "../auth";
 import { account } from "../context/appwrite";
+// import { account } from "../context/appWrite.js";
 
 // import { account } from "../../src/context/appWrite";
 
