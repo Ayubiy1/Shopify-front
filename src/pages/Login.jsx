@@ -5,10 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import api from "../auth";
-import { account } from "../context/appwrite";
-// import { account } from "../context/appWrite.js";
-
-// import { account } from "../../src/context/appWrite";
+import { account } from "../context/appwrite.js";
 
 const Login = () => {
   const navigate = useNavigate();
