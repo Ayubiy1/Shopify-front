@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import api from "../auth";
-import { account } from "../context/appwrite.js";
+// import { account } from "../context/appwrite.js";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,13 +38,13 @@ const Login = () => {
     },
   });
 
-  const loginWithGoogle = () => {
-    account.createOAuth2Session(
-      "google",
-      "https://shopify-steel-two.vercel.app", // success
-      "https://shopify-steel-two.vercel.app/login", // failure
-    );
-  };
+  // const loginWithGoogle = () => {
+  //   account.createOAuth2Session(
+  //     "google",
+  //     "https://shopify-steel-two.vercel.app", // success
+  //     "https://shopify-steel-two.vercel.app/login", // failure
+  //   );
+  // };
 
   const handleLogin = async (credentialResponse) => {
     console.log("Token frontenddan:", credentialResponse.credential);
@@ -139,7 +139,7 @@ const Login = () => {
           </Button>
         </Form>
 
-        <button onClick={loginWithGoogle}>Google bilan kirish</button>
+        {/* <button onClick={loginWithGoogle}>Google bilan kirish</button> */}
 
         <GoogleLogin
           onSuccess={handleLogin}
