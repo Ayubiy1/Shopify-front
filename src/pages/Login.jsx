@@ -3,9 +3,7 @@ import { Button, Form, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import api from "../auth";
-// import { account } from "../context/appwrite.js";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,45 +36,50 @@ const Login = () => {
     },
   });
 
-  // const loginWithGoogle = () => {
-  //   account.createOAuth2Session(
-  //     "google",
-  //     "https://shopify-steel-two.vercel.app", // success
-  //     "https://shopify-steel-two.vercel.app/login", // failure
-  //   );
-  // };
+  const loginWithGoogle = () => {
+    account.createOAuth2Session(
+      "google",
+      "https://shopify-steel-two.vercel.app", // success
+      "https://shopify-steel-two.vercel.app/login", // failure
+    );
+  };
 
   const handleLogin = async (credentialResponse) => {
-    console.log("Token frontenddan:", credentialResponse.credential);
+    try {
+      const token = credentialResponse.credential;
 
-    const decoded = jwtDecode(credentialResponse.credential);
-    console.log("Decoded:", decoded); // name, email, picture
+      console.log("Google token:", token);
 
-    // Backendga yuborish
-    const res = await fetch(
-      "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/google",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: credentialResponse.credential }),
-      },
-    );
+      const res = await fetch(
+        "https://angry-korie-developerayubiy-4da36956.koyeb.app/api/auth/google",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        },
+      );
 
-    const data = await res.json();
+      const data = await res.json();
 
-    localStorage.setItem("token", data.accessToken);
-    localStorage.setItem("refreshToken", data.refreshToken);
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
 
-    if (data.user.role === "buyer") {
-      navigate("/users");
+      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+
+      if (data.user.role === "admin") navigate("/admin");
+      if (data.user.role === "seller") navigate("/seller");
+      if (data.user.role === "buyer") navigate("/users");
+
+      alert("Login success");
+    } catch (err) {
+      console.error(err);
+      alert("Login error");
     }
-    if (data.user.role === "admin") {
-      navigate("/admin");
-    }
-    if (data.user.role === "seller") {
-      navigate("/seller");
-    }
-    alert("Success");
   };
 
   const onFinish = (values) => {
@@ -139,14 +142,18 @@ const Login = () => {
           </Button>
         </Form>
 
-        {/* <button onClick={loginWithGoogle}>Google bilan kirish</button> */}
-
         <GoogleLogin
           onSuccess={handleLogin}
+          onClick={handleLogin}
           onError={() => {
             console.log("Logi failed");
           }}
         />
+
+        {/* <GoogleLogin
+          onSuccess={handleLogin}
+          onError={() => console.log("Failed")}
+        /> */}
       </div>
     </div>
   );

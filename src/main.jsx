@@ -179,7 +179,7 @@ const router = createBrowserRouter([
 
 const queryClient = new QueryClient();
 const CLIENT_ID =
-  "58040354380-vs84cml7t8bt4t82t8ju8b01u2rhnqel.apps.googleusercontent.com";
+  "158040354380-vs84cml7t8bt4t82t8ju8b01u2rhnqel.apps.googleusercontent.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={CLIENT_ID}>
