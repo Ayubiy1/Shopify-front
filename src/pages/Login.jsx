@@ -12,7 +12,6 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: async (user) => {
       const res = await api.post("/api/auth/login", user);
-      // const res = await api.post("/api/auth/login", user);
 
       return res.data;
     },
