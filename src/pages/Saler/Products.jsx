@@ -30,7 +30,7 @@ const SellerProducts = () => {
 
   const checkUser = async () => {
     try {
-      const res = await api.get("/api/auth/me", {
+      const res = await api.get("//api/auth/me", {
         withCredentials: true, // cookie yuboriladi
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import api from "../auth";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: async (user) => {
       const res = await api.post("/api/auth/login", user);
+      // const res = await api.post("/api/auth/login", user);
 
       return res.data;
     },
@@ -68,6 +70,7 @@ const Login = () => {
         return;
       }
 
+      localStorage.setItem("token", data.accessToken);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
 

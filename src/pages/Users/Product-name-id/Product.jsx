@@ -6,6 +6,7 @@ import { Button, Image, message } from "antd";
 import "./Product.css";
 import ProductsCard from "../../../components/Products-card/ProductsCard";
 import api from "../../../auth";
+import axios from "axios";
 
 const ProductNameId = () => {
   const { id } = useParams();
@@ -43,7 +44,7 @@ const ProductNameId = () => {
   const { data: userData } = useQuery({
     queryKey: ["user-data-for-id"],
     queryFn: async () => {
-      const res = await api.get("/api/auth/me", {
+      const res = await api.get("//api/auth/me", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

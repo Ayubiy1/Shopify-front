@@ -3,19 +3,21 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../auth";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
     mutationFn: async (newUser) => {
-      const res = await api.post("/api/auth/register",
-        newUser,
-        { withCredentials: true }
-      );
+      const res = await api.post("/api/auth/register", newUser, {
+        withCredentials: true,
+      });
       return res.data;
     },
     onSuccess: (res) => {
+      console.log(res);
+
       localStorage.setItem("token", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
 
@@ -25,6 +27,8 @@ const Register = () => {
   });
 
   const onFinish = (values) => {
+    console.log("dasda");
+
     if (values.password.length < 6)
       console.log("Password 6 tadan kam bolmasligi kerak");
     else mutate({ ...values, role: "buyer" });
