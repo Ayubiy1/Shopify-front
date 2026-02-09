@@ -57,20 +57,37 @@ const CartPage = () => {
 
   // Productni sotib olish uchn
   const { mutate: buyMutation } = useMutation({
-    mutationFn: async (data) => {
-      console.log(data);
-
-      return api.post(`/api/cart/buy`, data);
+    mutationFn: async (payload) => {
+      return api.post("/api/cart/buy", payload);
     },
     onSuccess: () => {
       deleteMutation(productId);
-      alert("Muvaffaqqitalik sotib olindi!");
+      alert("Muvaffaqiyatli sotib olindi!");
       setOpen(false);
-      refetch(); // table yangilansin
+      refetch();
+    },
+    onError: (err) => {
+      console.log(err.response?.data);
+      alert(err.response?.data?.message || "Xatolik yuz berdi");
     },
   });
 
+  // const { mutate: buyMutation } = useMutation({
+  //   mutationFn: async (data) => {
+  //     console.log(data);
+
+  //     return api.post(`/api/cart/buy`, data);
+  //   },
+  //   onSuccess: () => {
+  //     deleteMutation(productId);
+  //     alert("Muvaffaqqitalik sotib olindi!");
+  //     setOpen(false);
+  //     refetch(); // table yangilansin
+  //   },
+  // });
+
   // 🗑 CART ITEMni O‘CHIRISH
+
   const { mutate: deleteMutation, isLoading: deleteisLoading } = useMutation({
     mutationFn: async (id) => api.delete(`/api/cart/remove/${id}`),
     onSuccess: () => {
@@ -142,6 +159,7 @@ const CartPage = () => {
             <Button
               type="primary"
               onClick={() => {
+                console.log(row?._id);
                 setProductId(row?._id);
                 if (!productIsloading) showDrawer();
               }}

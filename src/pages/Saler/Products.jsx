@@ -30,7 +30,7 @@ const SellerProducts = () => {
 
   const checkUser = async () => {
     try {
-      const res = await api.get("//api/auth/me", {
+      const res = await api.get("/api/auth/me", {
         withCredentials: true, // cookie yuboriladi
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -253,11 +253,10 @@ const SellerProducts = () => {
       dataIndex: "variants",
       render: (_, record) => {
         setProductId(record?._id);
-        console.log(record?._id);
 
         return (
           <>
-            {/* <Tag color={record?.isActive ? "green" : "red"}></Tag> */}
+            W{/* <Tag color={record?.isActive ? "green" : "red"}></Tag> */}
             <Select
               defaultValue={record?.isActive ? "Active" : "No Active"}
               style={{ width: 120 }}
